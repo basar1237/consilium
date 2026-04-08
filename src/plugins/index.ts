@@ -29,10 +29,13 @@ const s3Configured =
   Boolean(process.env.S3_ACCESS_KEY_ID) &&
   Boolean(process.env.S3_SECRET_ACCESS_KEY)
 
+/** Supabase S3 API ACL header'ını desteklemez; erişim bucket policy + "Public bucket" ile */
+const isSupabaseS3 = Boolean(process.env.S3_ENDPOINT?.includes('supabase.co'))
+
 const s3Plugin: Plugin[] = s3Configured
   ? [
       s3Storage({
-        acl: 'public-read',
+        ...(!isSupabaseS3 ? { acl: 'public-read' as const } : {}),
         bucket: process.env.S3_BUCKET as string,
         collections: {
           media: true,
