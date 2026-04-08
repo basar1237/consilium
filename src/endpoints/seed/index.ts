@@ -223,21 +223,12 @@ export const seed = async ({
       data: {
         navItems: [
           {
-            link: {
-              type: 'custom',
-              label: 'Posts',
-              url: '/posts',
-            },
+            label: 'Posts',
+            href: '/posts',
           },
           {
-            link: {
-              type: 'reference',
-              label: 'Contact',
-              reference: {
-                relationTo: 'pages',
-                value: contactPage.id,
-              },
-            },
+            label: 'Contact',
+            href: '/contact',
           },
         ],
       },
@@ -247,27 +238,16 @@ export const seed = async ({
       data: {
         navItems: [
           {
-            link: {
-              type: 'custom',
-              label: 'Admin',
-              url: '/admin',
-            },
+            label: 'Admin',
+            href: '/admin',
           },
           {
-            link: {
-              type: 'custom',
-              label: 'Source Code',
-              newTab: true,
-              url: 'https://github.com/payloadcms/payload/tree/main/templates/website',
-            },
+            label: 'Source Code',
+            href: 'https://github.com/payloadcms/payload/tree/main/templates/website',
           },
           {
-            link: {
-              type: 'custom',
-              label: 'Payload',
-              newTab: true,
-              url: 'https://payloadcms.com/',
-            },
+            label: 'Payload',
+            href: 'https://payloadcms.com/',
           },
         ],
       },
