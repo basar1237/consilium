@@ -11,6 +11,10 @@ const NEXT_PUBLIC_SERVER_URL = process.env.VERCEL_PROJECT_PRODUCTION_URL
   ? `https://${process.env.VERCEL_PROJECT_PRODUCTION_URL}`
   : process.env.__NEXT_PRIVATE_ORIGIN || 'http://localhost:3000'
 
+/** S3 / R2 / CloudFront: Next/Image için hostname (örn. bucket.s3.eu-west-2.amazonaws.com) */
+const MEDIA_CDN_HOSTNAME =
+  process.env.S3_HOSTNAME || process.env.NEXT_PUBLIC_S3_HOSTNAME || ''
+
 const nextConfig: NextConfig = {
   images: {
     localPatterns: [
@@ -31,6 +35,14 @@ const nextConfig: NextConfig = {
           protocol: url.protocol.replace(':', '') as 'http' | 'https',
         }
       }),
+      ...(MEDIA_CDN_HOSTNAME
+        ? [
+            {
+              hostname: MEDIA_CDN_HOSTNAME,
+              protocol: 'https' as const,
+            },
+          ]
+        : []),
     ],
   },
   webpack: (webpackConfig) => {
