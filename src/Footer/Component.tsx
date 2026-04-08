@@ -24,8 +24,12 @@ export async function Footer() {
           <nav className="flex flex-col md:flex-row gap-4">
             {navItems.map((item, i) => {
               return (
-                <Link className="text-white hover:text-gray-300 transition-colors" key={i} href={item.href || '#'}>
-                  {item.label}
+                <Link
+                  className="text-white hover:text-gray-300 transition-colors"
+                  key={i}
+                  href={item.link.url || '#'}
+                >
+                  {item.link?.label || ''}
                 </Link>
               )
             })}
