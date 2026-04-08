@@ -27,9 +27,9 @@ export async function Footer() {
                 <Link
                   className="text-white hover:text-gray-300 transition-colors"
                   key={i}
-                  href={item.link.url || '#'}
+                  href={item.href || '#'}
                 >
-                  {item.link?.label || ''}
+                  {item.label}
                 </Link>
               )
             })}
