@@ -1,4 +1,5 @@
 import type { Metadata } from 'next'
+import type { DefaultTypedEditorState } from '@payloadcms/richtext-lexical'
 import Link from 'next/link'
 import { notFound } from 'next/navigation'
 import configPromise from '@payload-config'
@@ -40,7 +41,7 @@ export default async function ServiceDetailPage({ params }: Props) {
   // Extract content from the first content block
   const contentBlock = page.layout?.find(
     (b: { blockType: string }) => b.blockType === 'content',
-  ) as { columns?: { richText?: Record<string, unknown> }[] } | undefined
+  ) as { columns?: { richText?: DefaultTypedEditorState }[] } | undefined
   const richTextData = contentBlock?.columns?.[0]?.richText
 
   // Extract CTA block
