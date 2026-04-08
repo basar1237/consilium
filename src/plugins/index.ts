@@ -32,6 +32,9 @@ const s3Configured =
 /** Supabase S3 API ACL header'ını desteklemez; erişim bucket policy + "Public bucket" ile */
 const isSupabaseS3 = Boolean(process.env.S3_ENDPOINT?.includes('supabase.co'))
 
+const s3Region =
+  process.env.S3_REGION || (isSupabaseS3 ? 'eu-central-1' : 'eu-west-2')
+
 const s3Plugin: Plugin[] = s3Configured
   ? [
       s3Storage({
@@ -47,11 +50,14 @@ const s3Plugin: Plugin[] = s3Configured
             accessKeyId: process.env.S3_ACCESS_KEY_ID as string,
             secretAccessKey: process.env.S3_SECRET_ACCESS_KEY as string,
           },
-          region: process.env.S3_REGION || 'eu-west-2',
+          region: s3Region,
           ...(process.env.S3_ENDPOINT
             ? {
                 endpoint: process.env.S3_ENDPOINT,
                 forcePathStyle: true,
+                // AWS SDK ≥3.729 varsayılan CRC32; Supabase/R2/MinIO 400 döner — presigned URL'de de checksum query oluşmasın
+                requestChecksumCalculation: 'WHEN_REQUIRED' as const,
+                responseChecksumValidation: 'WHEN_REQUIRED' as const,
               }
             : {}),
         },
