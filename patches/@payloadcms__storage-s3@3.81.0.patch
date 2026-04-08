@@ -1,0 +1,106 @@
+diff --git a/dist/client/S3ClientUploadHandler.js b/dist/client/S3ClientUploadHandler.js
+index b03487975237fee7903b101e6e93985a8650b7e0..d4ded307b4852c9f7745b06a5965326a27a4a15b 100644
+--- a/dist/client/S3ClientUploadHandler.js
++++ b/dist/client/S3ClientUploadHandler.js
+@@ -22,7 +22,7 @@ export const S3ClientUploadHandler = createClientUploadHandler({
+             const { errors } = await response.json();
+             throw new Error(errors.reduce((acc, err)=>`${acc ? `${acc}, ` : ''}${err.message}`, ''));
+         }
+-        const { url } = await response.json();
++        const { url, filename: serverFilename } = await response.json();
+         await fetch(url, {
+             body: file,
+             headers: {
+@@ -32,7 +32,10 @@ export const S3ClientUploadHandler = createClientUploadHandler({
+             method: 'PUT'
+         });
+         return {
+-            prefix
++            prefix,
++            ...serverFilename ? {
++                filename: serverFilename
++            } : {}
+         };
+     }
+ });
+diff --git a/dist/generateSignedURL.js b/dist/generateSignedURL.js
+index d059d5bb4e26b4d0f250c5ea99ebeb6565f6f841..79c66db6fff4320732834cece9c2e67d76b8dd46 100644
+--- a/dist/generateSignedURL.js
++++ b/dist/generateSignedURL.js
+@@ -6,6 +6,20 @@ import { sanitizeFilename } from 'payload/shared';
+ const bytesToMB = (bytes)=>{
+     return bytes / 1024 / 1024;
+ };
++/** S3 uyumlu servisler (Supabase vb.) object key'te Unicode / Türkçe karakterde 400 dönebiliyor */
++const toAsciiUploadFilename = (sanitized)=>{
++    const rawExt = path.extname(sanitized) || '';
++    const extPart = rawExt ? rawExt.toLowerCase().replace(/[^a-z0-9.]/g, '') : '';
++    let base = path.basename(sanitized, rawExt);
++    base = base.replace(/ı/g, 'i').replace(/İ/g, 'I').replace(/ğ/g, 'g').replace(/Ğ/g, 'G').replace(/ü/g, 'u').replace(/Ü/g, 'U').replace(/ş/g, 's').replace(/Ş/g, 'S').replace(/ö/g, 'o').replace(/Ö/g, 'O').replace(/ç/g, 'c').replace(/Ç/g, 'C');
++    base = base.normalize('NFKD').replace(/[\u0300-\u036f]/g, '');
++    base = base.replace(/[^a-zA-Z0-9._-]/g, '-').replace(/-+/g, '-').replace(/^[-.]+|[-.]+$/g, '');
++    const out = `${base || 'file'}${extPart}`;
++    if (!out) {
++        throw new APIError('Invalid filename', 400);
++    }
++    return out;
++};
+ const defaultAccess = ({ req })=>!!req.user;
+ export const getGenerateSignedURLHandler = ({ access = defaultAccess, acl, bucket, collections, getStorageClient })=>{
+     return async (req)=>{
+@@ -28,7 +42,7 @@ export const getGenerateSignedURLHandler = ({ access = defaultAccess, acl, bucke
+         })) {
+             throw new Forbidden();
+         }
+-        const sanitizedFilename = sanitizeFilename(filename);
++        const sanitizedFilename = toAsciiUploadFilename(sanitizeFilename(filename));
+         const fileKey = path.posix.join(prefix, sanitizedFilename);
+         const signableHeaders = new Set();
+         if (filesizeLimit) {
+@@ -39,7 +53,9 @@ export const getGenerateSignedURLHandler = ({ access = defaultAccess, acl, bucke
+             signableHeaders.add('content-length');
+         }
+         const url = await getSignedUrl(getStorageClient(), new AWS.PutObjectCommand({
+-            ACL: acl,
++            ...acl ? {
++                ACL: acl
++            } : {},
+             Bucket: bucket,
+             ContentLength: filesizeLimit ? Math.min(filesize, filesizeLimit) : undefined,
+             ContentType: mimeType,
+@@ -49,7 +65,8 @@ export const getGenerateSignedURLHandler = ({ access = defaultAccess, acl, bucke
+             signableHeaders
+         });
+         return Response.json({
+-            url
++            url,
++            filename: sanitizedFilename
+         });
+     };
+ };
+diff --git a/dist/handleUpload.js b/dist/handleUpload.js
+index d40221cd6a1f4d9865cdb0943d9e7e3dcd055333..0a5b02821116ba421c656f64c15a4d378d0c4f00 100644
+--- a/dist/handleUpload.js
++++ b/dist/handleUpload.js
+@@ -9,7 +9,9 @@ export const getHandleUpload = ({ acl, bucket, getStorageClient, prefix = '' })=
+         const fileBufferOrStream = file.tempFilePath ? fs.createReadStream(file.tempFilePath) : file.buffer;
+         if (file.buffer.length > 0 && file.buffer.length < multipartThreshold) {
+             await getStorageClient().putObject({
+-                ACL: acl,
++                ...acl ? {
++                    ACL: acl
++                } : {},
+                 Body: fileBufferOrStream,
+                 Bucket: bucket,
+                 ContentType: file.mimeType,
+@@ -20,7 +22,9 @@ export const getHandleUpload = ({ acl, bucket, getStorageClient, prefix = '' })=
+         const parallelUploadS3 = new Upload({
+             client: getStorageClient(),
+             params: {
+-                ACL: acl,
++                ...acl ? {
++                    ACL: acl
++                } : {},
+                 Body: fileBufferOrStream,
+                 Bucket: bucket,
+                 ContentType: file.mimeType,

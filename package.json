@@ -90,6 +90,9 @@
       "sharp",
       "esbuild",
       "unrs-resolver"
-    ]
+    ],
+    "patchedDependencies": {
+      "@payloadcms/storage-s3@3.81.0": "patches/@payloadcms__storage-s3@3.81.0.patch"
+    }
   }
 }

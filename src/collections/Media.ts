@@ -7,9 +7,11 @@ import {
 } from '@payloadcms/richtext-lexical'
 import path from 'path'
 import { fileURLToPath } from 'url'
+import { sanitizeFilename } from 'payload/shared'
 
 import { anyone } from '../access/anyone'
 import { authenticated } from '../access/authenticated'
+import { toAsciiUploadFilename } from '@/utilities/asciiUploadFilename'
 
 const filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(filename)
@@ -17,6 +19,16 @@ const dirname = path.dirname(filename)
 export const Media: CollectionConfig = {
   slug: 'media',
   folders: true,
+  hooks: {
+    beforeValidate: [
+      ({ data }) => {
+        if (data && typeof data.filename === 'string' && data.filename.length > 0) {
+          data.filename = toAsciiUploadFilename(sanitizeFilename(data.filename))
+        }
+        return data
+      },
+    ],
+  },
   access: {
     create: authenticated,
     delete: authenticated,
