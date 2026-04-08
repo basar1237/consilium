@@ -7,6 +7,25 @@ import { CallToActionBlock } from '@/blocks/CallToAction/Component'
 import { ContentBlock } from '@/blocks/Content/Component'
 import { FormBlock } from '@/blocks/Form/Component'
 import { MediaBlock } from '@/blocks/MediaBlock/Component'
+import { ConsiliumHeroBlockComponent } from '@/blocks/ConsiliumHero/Component'
+import { QuickServiceHubBlockComponent } from '@/blocks/QuickServiceHub/Component'
+import { TrustMetricsBlockComponent } from '@/blocks/TrustMetrics/Component'
+import { FeaturedTestimonialBlockComponent } from '@/blocks/FeaturedTestimonial/Component'
+import { HowWeWorkBlockComponent } from '@/blocks/HowWeWork/Component'
+import { WhyChooseUsBlockComponent } from '@/blocks/WhyChooseUs/Component'
+import { HomeFaqBlockComponent } from '@/blocks/HomeFAQ/Component'
+import { BlogPreviewBlockComponent } from '@/blocks/BlogPreview/Component'
+import { FinalCtaBlockComponent } from '@/blocks/FinalCTA/Component'
+import { InsightTabsBlockComponent } from '@/blocks/InsightTabs/Component'
+import { EnterpriseShowcaseBlockComponent } from '@/blocks/EnterpriseShowcase/Component'
+import { ServicesOverviewBlockComponent } from '@/blocks/ServicesOverview/Component'
+import { SectionNavBlockComponent } from '@/blocks/SectionNav/Component'
+import { FloatingSocialBlockComponent } from '@/blocks/FloatingSocial/Component'
+import { TestimonialsGridBlockComponent } from '@/blocks/TestimonialsGrid/Component'
+import { TeamGridBlockComponent } from '@/blocks/TeamGrid/Component'
+import { CompanyOverviewBlockComponent } from '@/blocks/CompanyOverview/Component'
+import { ContactSectionBlockComponent } from '@/blocks/ContactSection/Component'
+import { ConsultationFormBlockComponent } from '@/blocks/ConsultationForm/Component'
 
 const blockComponents = {
   archive: ArchiveBlock,
@@ -14,6 +33,25 @@ const blockComponents = {
   cta: CallToActionBlock,
   formBlock: FormBlock,
   mediaBlock: MediaBlock,
+  consiliumHero: ConsiliumHeroBlockComponent,
+  quickServiceHub: QuickServiceHubBlockComponent,
+  trustMetrics: TrustMetricsBlockComponent,
+  featuredTestimonial: FeaturedTestimonialBlockComponent,
+  howWeWork: HowWeWorkBlockComponent,
+  whyChooseUs: WhyChooseUsBlockComponent,
+  homeFaq: HomeFaqBlockComponent,
+  blogPreview: BlogPreviewBlockComponent,
+  finalCta: FinalCtaBlockComponent,
+  insightTabs: InsightTabsBlockComponent,
+  enterpriseShowcase: EnterpriseShowcaseBlockComponent,
+  servicesOverview: ServicesOverviewBlockComponent,
+  sectionNav: SectionNavBlockComponent,
+  floatingSocial: FloatingSocialBlockComponent,
+  testimonialsGrid: TestimonialsGridBlockComponent,
+  teamGrid: TeamGridBlockComponent,
+  companyOverview: CompanyOverviewBlockComponent,
+  contactSection: ContactSectionBlockComponent,
+  consultationForm: ConsultationFormBlockComponent,
 }
 
 export const RenderBlocks: React.FC<{
@@ -33,7 +71,45 @@ export const RenderBlocks: React.FC<{
             const Block = blockComponents[blockType]
 
             if (Block) {
-              return (
+              const stickyBlocks = ['sectionNav', 'floatingSocial']
+
+              const isConsiliumBlock = [
+                'consiliumHero',
+                'quickServiceHub',
+                'trustMetrics',
+                'featuredTestimonial',
+                'howWeWork',
+                'whyChooseUs',
+                'homeFaq',
+                'blogPreview',
+                'finalCta',
+                'insightTabs',
+                'enterpriseShowcase',
+                'servicesOverview',
+                'sectionNav',
+                'floatingSocial',
+                'testimonialsGrid',
+                'teamGrid',
+                'companyOverview',
+                'contactSection',
+                'consultationForm',
+              ].includes(blockType)
+
+              if (stickyBlocks.includes(blockType)) {
+                return (
+                  <Fragment key={index}>
+                    {/* @ts-expect-error there may be some mismatch between the expected types here */}
+                    <Block {...block} />
+                  </Fragment>
+                )
+              }
+
+              return isConsiliumBlock ? (
+                <div key={index}>
+                  {/* @ts-expect-error there may be some mismatch between the expected types here */}
+                  <Block {...block} />
+                </div>
+              ) : (
                 <div className="my-16" key={index}>
                   {/* @ts-expect-error there may be some mismatch between the expected types here */}
                   <Block {...block} disableInnerContainer />

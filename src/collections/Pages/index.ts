@@ -7,6 +7,25 @@ import { CallToAction } from '../../blocks/CallToAction/config'
 import { Content } from '../../blocks/Content/config'
 import { FormBlock } from '../../blocks/Form/config'
 import { MediaBlock } from '../../blocks/MediaBlock/config'
+import { ConsiliumHero } from '../../blocks/ConsiliumHero/config'
+import { QuickServiceHub } from '../../blocks/QuickServiceHub/config'
+import { TrustMetrics } from '../../blocks/TrustMetrics/config'
+import { FeaturedTestimonial } from '../../blocks/FeaturedTestimonial/config'
+import { HowWeWork } from '../../blocks/HowWeWork/config'
+import { WhyChooseUs } from '../../blocks/WhyChooseUs/config'
+import { HomeFAQ } from '../../blocks/HomeFAQ/config'
+import { BlogPreview } from '../../blocks/BlogPreview/config'
+import { FinalCTA } from '../../blocks/FinalCTA/config'
+import { InsightTabs } from '../../blocks/InsightTabs/config'
+import { EnterpriseShowcase } from '../../blocks/EnterpriseShowcase/config'
+import { ServicesOverview } from '../../blocks/ServicesOverview/config'
+import { SectionNav } from '../../blocks/SectionNav/config'
+import { FloatingSocial } from '../../blocks/FloatingSocial/config'
+import { TestimonialsGrid } from '../../blocks/TestimonialsGrid/config'
+import { TeamGrid } from '../../blocks/TeamGrid/config'
+import { CompanyOverview } from '../../blocks/CompanyOverview/config'
+import { ContactSection } from '../../blocks/ContactSection/config'
+import { ConsultationForm } from '../../blocks/ConsultationForm/config'
 import { hero } from '@/heros/config'
 import { slugField } from 'payload'
 import { populatePublishedAt } from '../../hooks/populatePublishedAt'
@@ -72,7 +91,32 @@ export const Pages: CollectionConfig<'pages'> = {
             {
               name: 'layout',
               type: 'blocks',
-              blocks: [CallToAction, Content, MediaBlock, Archive, FormBlock],
+              blocks: [
+                CallToAction,
+                Content,
+                MediaBlock,
+                Archive,
+                FormBlock,
+                ConsiliumHero,
+                QuickServiceHub,
+                TrustMetrics,
+                FeaturedTestimonial,
+                HowWeWork,
+                WhyChooseUs,
+                HomeFAQ,
+                BlogPreview,
+                FinalCTA,
+                InsightTabs,
+                EnterpriseShowcase,
+                ServicesOverview,
+                SectionNav,
+                FloatingSocial,
+                TestimonialsGrid,
+                TeamGrid,
+                CompanyOverview,
+                ContactSection,
+                ConsultationForm,
+              ],
               required: true,
               admin: {
                 initCollapsed: true,

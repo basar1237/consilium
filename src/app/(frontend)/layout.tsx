@@ -5,39 +5,39 @@ import { GeistMono } from 'geist/font/mono'
 import { GeistSans } from 'geist/font/sans'
 import React from 'react'
 
-import { AdminBar } from '@/components/AdminBar'
-import { Footer } from '@/Footer/Component'
-import { Header } from '@/Header/Component'
-import { Providers } from '@/providers'
-import { InitTheme } from '@/providers/Theme/InitTheme'
+import ConsiliumHeader from '@/components/consilium/layout/Header'
+import ConsiliumFooter from '@/components/consilium/layout/Footer'
+import { getCachedGlobal } from '@/utilities/getGlobals'
 import { mergeOpenGraph } from '@/utilities/mergeOpenGraph'
-import { draftMode } from 'next/headers'
+
+import type { Header as HeaderType, Footer as FooterType } from '@/payload-types'
 
 import './globals.css'
 import { getServerSideURL } from '@/utilities/getURL'
 
 export default async function RootLayout({ children }: { children: React.ReactNode }) {
-  const { isEnabled } = await draftMode()
+  const headerData: HeaderType = await getCachedGlobal('header', 1)()
+  const footerData: FooterType = await getCachedGlobal('footer', 1)()
+
+  const favicon = typeof headerData?.favicon === 'object' && headerData.favicon !== null ? headerData.favicon : null
+  const faviconUrl = favicon?.url
 
   return (
-    <html className={cn(GeistSans.variable, GeistMono.variable)} lang="en" suppressHydrationWarning>
+    <html className={cn(GeistSans.variable, GeistMono.variable)} lang="en" data-theme="light" suppressHydrationWarning>
       <head>
-        <InitTheme />
-        <link href="/favicon.ico" rel="icon" sizes="32x32" />
-        <link href="/favicon.svg" rel="icon" type="image/svg+xml" />
+        {faviconUrl ? (
+          <link href={faviconUrl} rel="icon" type={favicon?.mimeType || 'image/x-icon'} />
+        ) : (
+          <>
+            <link href="/favicon.ico" rel="icon" sizes="32x32" />
+            <link href="/favicon.svg" rel="icon" type="image/svg+xml" />
+          </>
+        )}
       </head>
       <body>
-        <Providers>
-          <AdminBar
-            adminBarProps={{
-              preview: isEnabled,
-            }}
-          />
-
-          <Header />
-          {children}
-          <Footer />
-        </Providers>
+        <ConsiliumHeader data={headerData} />
+        <main className="flex-1">{children}</main>
+        <ConsiliumFooter data={footerData} />
       </body>
     </html>
   )
