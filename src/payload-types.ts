@@ -1006,9 +1006,12 @@ export interface InsightTabsBlock {
  */
 export interface EnterpriseShowcaseBlock {
   title: string;
-  backgroundImage?: (number | null) | Media;
   cards?:
     | {
+        /**
+         * This card’s background photo (each card can use a different image).
+         */
+        backgroundImage?: (number | null) | Media;
         title: string;
         description: string;
         href: string;
@@ -1821,10 +1824,10 @@ export interface InsightTabsBlockSelect<T extends boolean = true> {
  */
 export interface EnterpriseShowcaseBlockSelect<T extends boolean = true> {
   title?: T;
-  backgroundImage?: T;
   cards?:
     | T
     | {
+        backgroundImage?: T;
         title?: T;
         description?: T;
         href?: T;

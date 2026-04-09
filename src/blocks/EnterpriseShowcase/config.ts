@@ -15,15 +15,18 @@ export const EnterpriseShowcase: Block = {
       defaultValue: 'Comprehensive Enterprise Risk Management Services',
     },
     {
-      name: 'backgroundImage',
-      type: 'upload',
-      relationTo: 'media',
-    },
-    {
       name: 'cards',
       type: 'array',
       minRows: 1,
       fields: [
+        {
+          name: 'backgroundImage',
+          type: 'upload',
+          relationTo: 'media',
+          admin: {
+            description: 'This card’s background photo (each card can use a different image).',
+          },
+        },
         { name: 'title', type: 'text', required: true },
         { name: 'description', type: 'textarea', required: true },
         { name: 'href', type: 'text', required: true },
