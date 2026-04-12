@@ -13,8 +13,8 @@ type ContactDetailRow = { label: string; value: string; href?: string }
 
 const contactDetails: ContactDetailRow[] = [
   { label: 'Email', value: CONTACT_EMAIL, href: `mailto:${CONTACT_EMAIL}` },
-  { label: 'Address', value: 'London, United Kingdom' },
-  { label: 'Working Hours', value: 'Monday – Friday, 9:00 AM – 5:30 PM GMT' },
+  { label: 'Address', value: 'Sheffield, United Kingdom' },
+  { label: 'Working Hours', value: 'Monday – Saturday, 9:00 AM – 6:00 PM GMT' },
 ]
 
 export default function ContactPage() {
