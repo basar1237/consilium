@@ -101,7 +101,7 @@ export default function ContactPage() {
                 </p>
                 <a
                   href={`mailto:${CONTACT_EMAIL}?subject=Enquiry%20from%20website`}
-                  className="relative mt-6 inline-block rounded-xl bg-white px-6 py-3 font-semibold text-[#2B7DE9] shadow-lg transition-all duration-200 hover:bg-blue-50 hover:shadow-xl"
+                  className="relative mt-6 inline-block rounded-xl bg-white px-6 py-3 font-semibold text-[#2B7DE9] shadow-lg transition-all duration-200 hover:bg-blue-50 hover:shadow-xl text-sm"
                 >
                   Email {CONTACT_EMAIL}
                 </a>

@@ -90,7 +90,7 @@ export const ContactSectionBlockComponent: React.FC<ContactSectionBlock> = ({
               {ctaButtonLabel && ctaButtonHref && (
                 <Link
                   href={ctaButtonHref}
-                  className="relative mt-6 inline-block rounded-xl bg-white px-6 py-3 font-semibold text-[#2B7DE9] shadow-lg transition-all duration-200 hover:bg-blue-50 hover:shadow-xl"
+                  className="relative mt-6 inline-block rounded-xl bg-white px-6 py-3 font-semibold text-[#2B7DE9] shadow-lg transition-all duration-200 hover:bg-blue-50 hover:shadow-xl text-sm"
                 >
                   {ctaButtonLabel}
                 </Link>
