@@ -12,7 +12,7 @@ export default function CTAButton({
   text = "Book a Consultation",
   className,
   variant = "primary",
-  href = "/book-consultation",
+  href = "/contact",
 }: CTAButtonProps) {
   return (
     <Link

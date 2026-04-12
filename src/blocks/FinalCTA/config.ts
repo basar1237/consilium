@@ -38,7 +38,7 @@ export const FinalCTA: Block = {
     {
       name: 'buttonHref',
       type: 'text',
-      defaultValue: '/book-consultation',
+      defaultValue: '/contact',
     },
   ],
 }

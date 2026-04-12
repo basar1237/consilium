@@ -25,7 +25,10 @@ export const ConsultationForm: Block = {
       type: 'email',
       required: true,
       defaultValue: 'basaryldrm1237@gmail.com',
-      admin: { description: 'Email address that consultation requests are sent to' },
+      admin: {
+        description:
+          'Consultation request emails are sent to this address.',
+      },
     },
   ],
 }

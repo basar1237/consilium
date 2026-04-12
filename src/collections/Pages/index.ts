@@ -5,7 +5,6 @@ import { authenticatedOrPublished } from '../../access/authenticatedOrPublished'
 import { Archive } from '../../blocks/ArchiveBlock/config'
 import { CallToAction } from '../../blocks/CallToAction/config'
 import { Content } from '../../blocks/Content/config'
-import { FormBlock } from '../../blocks/Form/config'
 import { MediaBlock } from '../../blocks/MediaBlock/config'
 import { ConsiliumHero } from '../../blocks/ConsiliumHero/config'
 import { QuickServiceHub } from '../../blocks/QuickServiceHub/config'
@@ -26,6 +25,7 @@ import { TeamGrid } from '../../blocks/TeamGrid/config'
 import { CompanyOverview } from '../../blocks/CompanyOverview/config'
 import { ContactSection } from '../../blocks/ContactSection/config'
 import { ConsultationForm } from '../../blocks/ConsultationForm/config'
+import { CenteredProse } from '../../blocks/CenteredProse/config'
 import { hero } from '@/heros/config'
 import { slugField } from 'payload'
 import { populatePublishedAt } from '../../hooks/populatePublishedAt'
@@ -96,7 +96,6 @@ export const Pages: CollectionConfig<'pages'> = {
                 Content,
                 MediaBlock,
                 Archive,
-                FormBlock,
                 ConsiliumHero,
                 QuickServiceHub,
                 TrustMetrics,
@@ -116,6 +115,7 @@ export const Pages: CollectionConfig<'pages'> = {
                 CompanyOverview,
                 ContactSection,
                 ConsultationForm,
+                CenteredProse,
               ],
               required: true,
               admin: {

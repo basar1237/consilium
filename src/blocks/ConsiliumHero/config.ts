@@ -31,7 +31,7 @@ export const ConsiliumHero: Block = {
       type: 'group',
       fields: [
         { name: 'label', type: 'text', defaultValue: 'Book a Free Consultation' },
-        { name: 'href', type: 'text', defaultValue: '/book-consultation' },
+        { name: 'href', type: 'text', defaultValue: '/contact' },
       ],
     },
     {

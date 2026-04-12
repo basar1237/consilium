@@ -4,6 +4,7 @@ import { PayloadRedirects } from '@/components/PayloadRedirects'
 import configPromise from '@payload-config'
 import { getPayload, type RequiredDataFromCollectionSlug } from 'payload'
 import { draftMode } from 'next/headers'
+import { redirect } from 'next/navigation'
 import React, { cache } from 'react'
 
 import { RenderBlocks } from '@/blocks/RenderBlocks'
@@ -27,7 +28,11 @@ export async function generateStaticParams() {
 
   const params = pages.docs
     ?.filter((doc) => {
-      return doc.slug !== 'home'
+      return (
+        doc.slug !== 'home' &&
+        doc.slug !== 'contact' &&
+        doc.slug !== 'book-consultation'
+      )
     })
     .map(({ slug }) => {
       return { slug }
@@ -47,6 +52,9 @@ export default async function Page({ params: paramsPromise }: Args) {
   const { slug = 'home' } = await paramsPromise
   // Decode to support slugs with special characters
   const decodedSlug = decodeURIComponent(slug)
+  if (decodedSlug === 'book-consultation') {
+    redirect('/contact')
+  }
   const url = '/' + decodedSlug
   let page: RequiredDataFromCollectionSlug<'pages'> | null
 
@@ -78,6 +86,9 @@ export async function generateMetadata({ params: paramsPromise }: Args): Promise
   const { slug = 'home' } = await paramsPromise
   // Decode to support slugs with special characters
   const decodedSlug = decodeURIComponent(slug)
+  if (decodedSlug === 'book-consultation') {
+    redirect('/contact')
+  }
   const page = await queryPageBySlug({
     slug: decodedSlug,
   })
@@ -93,6 +104,7 @@ const queryPageBySlug = cache(async ({ slug }: { slug: string }) => {
   const result = await payload.find({
     collection: 'pages',
     draft,
+    depth: 2,
     limit: 1,
     pagination: false,
     overrideAccess: draft,

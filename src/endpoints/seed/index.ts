@@ -1,7 +1,5 @@
-import type { CollectionSlug, GlobalSlug, Payload, PayloadRequest, File } from 'payload'
+import type { CollectionSlug, Payload, PayloadRequest, File } from 'payload'
 
-import { contactForm as contactFormData } from './contact-form'
-import { contact as contactPageData } from './contact-page'
 import { home } from './home'
 import { image1 } from './image-1'
 import { image2 } from './image-2'
@@ -15,12 +13,8 @@ const collections: CollectionSlug[] = [
   'media',
   'pages',
   'posts',
-  'forms',
-  'form-submissions',
   'search',
 ]
-
-const globals: GlobalSlug[] = ['header', 'footer']
 
 const categories = ['Technology', 'News', 'Finance', 'Design', 'Software', 'Engineering']
 
@@ -43,21 +37,21 @@ export const seed = async ({
   // the custom `/api/seed` endpoint does not
   payload.logger.info(`— Clearing collections and globals...`)
 
-  // clear the database
-  await Promise.all(
-    globals.map((global) =>
-      payload.updateGlobal({
-        slug: global,
-        data: {
-          navItems: [],
-        },
-        depth: 0,
-        context: {
-          disableRevalidate: true,
-        },
-      }),
-    ),
-  )
+  // clear the database (sadece header/footer — site-settings şeması farklı)
+  await Promise.all([
+    payload.updateGlobal({
+      slug: 'header',
+      data: { navItems: [] },
+      depth: 0,
+      context: { disableRevalidate: true },
+    }),
+    payload.updateGlobal({
+      slug: 'footer',
+      data: { navItems: [] },
+      depth: 0,
+      context: { disableRevalidate: true },
+    }),
+  ])
 
   await Promise.all(
     collections.map((collection) => payload.db.deleteMany({ collection, req, where: {} })),
@@ -192,28 +186,13 @@ export const seed = async ({
     },
   })
 
-  payload.logger.info(`— Seeding contact form...`)
-
-  const contactForm = await payload.create({
-    collection: 'forms',
-    depth: 0,
-    data: contactFormData,
-  })
-
   payload.logger.info(`— Seeding pages...`)
 
-  const [_, contactPage] = await Promise.all([
-    payload.create({
-      collection: 'pages',
-      depth: 0,
-      data: home({ heroImage: imageHomeDoc, metaImage: image2Doc }),
-    }),
-    payload.create({
-      collection: 'pages',
-      depth: 0,
-      data: contactPageData({ contactForm: contactForm }),
-    }),
-  ])
+  await payload.create({
+    collection: 'pages',
+    depth: 0,
+    data: home({ heroImage: imageHomeDoc, metaImage: image2Doc }),
+  })
 
   payload.logger.info(`— Seeding globals...`)
 

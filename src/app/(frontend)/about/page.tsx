@@ -299,7 +299,7 @@ function AboutFallback() {
           </p>
           <div className="mt-10">
             <Link
-              href="/book-consultation"
+              href="/contact"
               className="inline-block rounded-xl bg-white px-8 py-4 font-semibold text-[#2B7DE9] shadow-lg transition-all duration-200 hover:bg-blue-50 hover:shadow-xl"
             >
               Book a Consultation
@@ -315,6 +315,7 @@ const queryPageBySlug = cache(async (slug: string) => {
   const payload = await getPayload({ config: configPromise })
   const result = await payload.find({
     collection: 'pages',
+    depth: 2,
     limit: 1,
     pagination: false,
     overrideAccess: false,

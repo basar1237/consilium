@@ -39,7 +39,7 @@ async function main() {
           blockType: 'consiliumHero',
           title: 'Navigating Risk, Delivering Confidence',
           subtitle: 'Expert risk advisory and management services for UK businesses. We help organisations identify, assess, and manage risk to protect value and drive sustainable growth.',
-          primaryCta: { label: 'Book a Free Consultation', href: '/book-consultation' },
+          primaryCta: { label: 'Book a Free Consultation', href: '/contact' },
           secondaryCta: { label: 'Explore Our Services', href: '#services-hub' },
         },
         {
@@ -173,7 +173,7 @@ async function main() {
           title: 'Ready to Strengthen Your Risk Management?',
           description: 'Contact us today for a no-obligation consultation with one of our senior risk advisors.',
           buttonLabel: 'Book a Consultation',
-          buttonHref: '/book-consultation',
+          buttonHref: '/contact',
         },
         {
           blockType: 'floatingSocial',
@@ -263,7 +263,7 @@ async function main() {
           title: 'Ready to Work With Us?',
           description: 'Get in touch to discuss how Consilium can help your organisation manage risk more effectively.',
           buttonLabel: 'Book a Consultation',
-          buttonHref: '/book-consultation',
+          buttonHref: '/contact',
         },
       ],
       meta: {

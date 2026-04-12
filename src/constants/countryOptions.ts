@@ -980,3 +980,12 @@ export const countryOptions = [
     value: 'ZW',
   },
 ]
+
+const uk = countryOptions.find((c) => c.value === 'GB')
+const restSorted = countryOptions
+  .filter((c) => c.value !== 'GB')
+  .slice()
+  .sort((a, b) => a.label.localeCompare(b.label, 'en'))
+
+/** United Kingdom ilk sırada, diğer ülkeler A–Z */
+export const countryOptionsUkFirst = uk ? [uk, ...restSorted] : countryOptions

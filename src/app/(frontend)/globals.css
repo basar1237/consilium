@@ -24,6 +24,17 @@
 
 @plugin "@tailwindcss/typography";
 
+/* CenteredProse maxWidth — scanner’da kesin görünsün (dinamik cn ile bazen düşer) */
+@source inline("max-w-lg");
+@source inline("max-w-xl");
+@source inline("sm:max-w-xl");
+@source inline("max-w-2xl");
+@source inline("max-w-3xl");
+@source inline("lg:max-w-3xl");
+@source inline("max-w-4xl");
+@source inline("lg:max-w-4xl");
+@source inline("lg:max-w-6xl");
+@source inline("w-full");
 @source inline("lg:col-span-4");
 @source inline("lg:col-span-6");
 @source inline("lg:col-span-8");

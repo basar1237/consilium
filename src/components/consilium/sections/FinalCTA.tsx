@@ -13,7 +13,7 @@ export default function FinalCTA() {
         </p>
         <div className="mt-10">
           <Link
-            href="/book-consultation"
+            href="/contact"
             className="inline-block rounded-lg bg-white px-8 py-3.5 font-semibold text-[#2B7DE9] shadow-lg transition-all duration-200 hover:bg-blue-50 hover:shadow-xl"
           >
             Book a Consultation

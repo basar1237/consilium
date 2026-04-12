@@ -109,6 +109,132 @@ async function apiGet(path, token) {
   return res.json()
 }
 
+/** Contact + Book Consultation sayfalarında ortak Payload formu (Form Submissions) */
+function sharedContactFormPayload() {
+  return {
+    title: 'Contact & Consultation',
+    confirmationType: 'message',
+    submitButtonLabel: 'Submit',
+    confirmationMessage: {
+      root: {
+        type: 'root',
+        children: [
+          {
+            type: 'heading',
+            children: [
+              {
+                type: 'text',
+                detail: 0,
+                format: 0,
+                mode: 'normal',
+                style: '',
+                text: 'Thank you — your message has been submitted successfully.',
+                version: 1,
+              },
+            ],
+            direction: 'ltr',
+            format: '',
+            indent: 0,
+            tag: 'h2',
+            version: 1,
+          },
+        ],
+        direction: 'ltr',
+        format: '',
+        indent: 0,
+        version: 1,
+      },
+    },
+    emails: [
+      {
+        emailFrom: '"Consilium" <basaryldrm1237@gmail.com>',
+        emailTo: 'basaryldrm1237@gmail.com',
+        subject: 'New form submission',
+        message: {
+          root: {
+            type: 'root',
+            children: [
+              {
+                type: 'paragraph',
+                children: [
+                  {
+                    type: 'text',
+                    detail: 0,
+                    format: 0,
+                    mode: 'normal',
+                    style: '',
+                    text: 'A new submission was received from the website contact/consultation form.',
+                    version: 1,
+                  },
+                ],
+                direction: 'ltr',
+                format: '',
+                indent: 0,
+                textFormat: 0,
+                version: 1,
+              },
+            ],
+            direction: 'ltr',
+            format: '',
+            indent: 0,
+            version: 1,
+          },
+        },
+      },
+    ],
+    fields: [
+      {
+        name: 'full-name',
+        blockName: 'full-name',
+        blockType: 'text',
+        label: 'Full Name',
+        required: true,
+        width: 100,
+      },
+      {
+        name: 'email',
+        blockName: 'email',
+        blockType: 'email',
+        label: 'Email',
+        required: true,
+        width: 100,
+      },
+      {
+        name: 'organisation',
+        blockName: 'organisation',
+        blockType: 'text',
+        label: 'Organisation',
+        required: true,
+        width: 100,
+      },
+      {
+        name: 'country',
+        blockName: 'country',
+        blockType: 'country',
+        label: 'Country',
+        required: true,
+        width: 100,
+      },
+      {
+        name: 'phone',
+        blockName: 'phone',
+        blockType: 'number',
+        label: 'Phone',
+        required: false,
+        width: 100,
+      },
+      {
+        name: 'message',
+        blockName: 'message',
+        blockType: 'textarea',
+        label: 'Message',
+        required: true,
+        width: 100,
+      },
+    ],
+  }
+}
+
 // ── Main ───────────────────────────────────────────────────────────────────
 
 async function main() {
@@ -287,7 +413,7 @@ async function main() {
           title: 'Navigating Risk, Delivering Confidence',
           subtitle:
             'Expert risk advisory and management services for UK businesses. We help organisations identify, assess, and manage risk to protect value and drive sustainable growth.',
-          primaryCta: { label: 'Book a Free Consultation', href: '/book-consultation' },
+          primaryCta: { label: 'Book a Free Consultation', href: '/contact' },
           secondaryCta: { label: 'Explore Our Services', href: '#services-hub' },
         },
         {
@@ -446,7 +572,7 @@ async function main() {
           title: 'Ready to Strengthen Your Risk Management?',
           description: 'Contact us today for a no-obligation consultation with one of our senior risk advisors.',
           buttonLabel: 'Book a Consultation',
-          buttonHref: '/book-consultation',
+          buttonHref: '/contact',
         },
         {
           blockType: 'floatingSocial',
@@ -545,7 +671,7 @@ async function main() {
           title: 'Ready to Work With Us?',
           description: 'Get in touch to discuss how Consilium can help your organisation manage risk more effectively.',
           buttonLabel: 'Book a Consultation',
-          buttonHref: '/book-consultation',
+          buttonHref: '/contact',
         },
       ],
       meta: {
@@ -585,7 +711,7 @@ async function main() {
           title: 'Ready to Strengthen Your Risk Management?',
           description: 'Contact us today for a no-obligation consultation with one of our senior risk advisors.',
           buttonLabel: 'Book a Consultation',
-          buttonHref: '/book-consultation',
+          buttonHref: '/contact',
         },
       ],
       meta: {
@@ -638,7 +764,7 @@ async function main() {
           title: 'Need Help Implementing ISO 31000?',
           description: 'Our consultants can help you design and implement a proportionate, practical risk management framework aligned with ISO 31000.',
           buttonLabel: 'Book a Consultation',
-          buttonHref: '/book-consultation',
+          buttonHref: '/contact',
         },
       ],
       meta: {
@@ -649,6 +775,16 @@ async function main() {
     token,
   )
   console.log(`   ISO 31000 → ${isoPage.doc?.id || 'error'}\n`)
+
+  // 8b. Shared Payload form (contact + consultation → Form Submissions)
+  console.log('8b. Creating Contact & Consultation form...')
+  const sharedFormRes = await api('/forms', sharedContactFormPayload(), token)
+  const sharedFormId = sharedFormRes.doc?.id
+  if (!sharedFormId) {
+    console.error('   Form creation failed:', JSON.stringify(sharedFormRes))
+  } else {
+    console.log(`   Form → ${sharedFormId}\n`)
+  }
 
   // 9. Create CONTACT page
   console.log('9. Creating Contact page...')
@@ -674,8 +810,9 @@ async function main() {
           ctaTitle: 'Ready to Get Started?',
           ctaDescription: 'Book a free consultation to discuss how we can help your organisation manage risk effectively.',
           ctaButtonLabel: 'Book a Consultation',
-          ctaButtonHref: '/book-consultation',
+          ctaButtonHref: '/contact',
           email: 'basaryldrm1237@gmail.com',
+          ...(sharedFormId ? { form: sharedFormId } : {}),
         },
       ],
       meta: {
@@ -687,34 +824,10 @@ async function main() {
   )
   console.log(`   Contact → ${contactPage.doc?.id || 'error'}\n`)
 
-  // 10. Create BOOK CONSULTATION page
-  console.log('10. Creating Book Consultation page...')
-  const consultPage = await api(
-    '/pages',
-    {
-      title: 'Book a Consultation',
-      slug: 'book-consultation',
-      _status: 'published',
-      hero: { type: 'none' },
-      layout: [
-        {
-          blockType: 'consultationForm',
-          title: 'Book a free risk consultation',
-          description: 'Tell us about your organisation and risk management priorities. We will review your request and get back to you to arrange a no-obligation conversation with a senior advisor.',
-          email: 'basaryldrm1237@gmail.com',
-        },
-      ],
-      meta: {
-        title: 'Book a Consultation | Consilium Risk Advisory Group',
-        description: 'Request a free risk management consultation with our senior advisors.',
-      },
-    },
-    token,
-  )
-  console.log(`   Book Consultation → ${consultPage.doc?.id || 'error'}\n`)
+  // (Book Consultation artık ayrı sayfa değil — tüm CTA’lar /contact; eski URL next.config redirect ile /contact’e gider.)
 
-  // 11. Create SERVICE pages
-  console.log('11. Creating Service pages...')
+  // 10. Create SERVICE pages
+  console.log('10. Creating Service pages...')
   const servicePages = [
     {
       title: 'Enterprise Risk Management',
@@ -838,7 +951,7 @@ async function main() {
             title: `Ready to discuss ${svc.title.toLowerCase()}?`,
             description: 'Contact us for a no-obligation consultation with one of our senior advisors.',
             buttonLabel: 'Book a Consultation',
-            buttonHref: '/book-consultation',
+            buttonHref: '/contact',
           },
         ],
         meta: {
@@ -852,8 +965,8 @@ async function main() {
   }
   console.log()
 
-  // 12. Update header
-  console.log('12. Updating Header...')
+  // 11. Update header
+  console.log('11. Updating Header...')
   await apiPatch(
     '/globals/header',
     {
@@ -866,14 +979,14 @@ async function main() {
         { label: 'Blog', href: '/blog' },
         { label: 'Contact', href: '/contact' },
       ],
-      ctaButton: { label: 'Book Consultation', href: '/book-consultation' },
+      ctaButton: { label: 'Book Consultation', href: '/contact' },
     },
     token,
   )
   console.log('   Header updated\n')
 
-  // 13. Update footer
-  console.log('13. Updating Footer...')
+  // 12. Update footer
+  console.log('12. Updating Footer...')
   await apiPatch(
     '/globals/footer',
     {
@@ -913,7 +1026,6 @@ async function main() {
   console.log('    /testimonials')
   console.log('    /iso-31000')
   console.log('    /contact')
-  console.log('    /book-consultation')
   console.log('    /services/enterprise-risk-management')
   console.log('    /services/regulatory-compliance')
   console.log('    /services/operational-resilience')

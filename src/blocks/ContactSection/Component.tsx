@@ -1,6 +1,7 @@
 import React from 'react'
 import Link from 'next/link'
 import type { ContactSectionBlock } from '@/payload-types'
+import { ContactForm } from '@/components/ContactForm'
 
 export const ContactSectionBlockComponent: React.FC<ContactSectionBlock> = ({
   title,
@@ -12,10 +13,7 @@ export const ContactSectionBlockComponent: React.FC<ContactSectionBlock> = ({
   ctaDescription,
   ctaButtonLabel,
   ctaButtonHref,
-  email,
 }) => {
-  const contactEmail = email || 'basaryldrm1237@gmail.com'
-
   return (
     <section className="py-20">
       <div className="mx-auto max-w-7xl px-6 lg:px-8">
@@ -31,48 +29,9 @@ export const ContactSectionBlockComponent: React.FC<ContactSectionBlock> = ({
             <div className="rounded-2xl border border-zinc-200/80 bg-white p-8 shadow-sm sm:p-10">
               <h2 className="text-2xl font-bold text-[#1A1A2E]">{formTitle}</h2>
               <p className="mt-2 text-sm text-zinc-500">Fill out the form and we&rsquo;ll get back to you shortly.</p>
-              <form className="mt-8 space-y-6">
-                <div className="grid gap-6 sm:grid-cols-2">
-                  <div>
-                    <label className="mb-2 block text-sm font-medium text-zinc-700">Full Name</label>
-                    <input
-                      type="text"
-                      placeholder="John Smith"
-                      className="w-full rounded-xl border border-zinc-200 bg-zinc-50/50 px-4 py-3 text-sm transition-all duration-200 placeholder:text-zinc-400 focus:border-[#2B7DE9] focus:bg-white focus:outline-none focus:ring-4 focus:ring-[#2B7DE9]/10"
-                    />
-                  </div>
-                  <div>
-                    <label className="mb-2 block text-sm font-medium text-zinc-700">Email Address</label>
-                    <input
-                      type="email"
-                      placeholder="john@example.com"
-                      className="w-full rounded-xl border border-zinc-200 bg-zinc-50/50 px-4 py-3 text-sm transition-all duration-200 placeholder:text-zinc-400 focus:border-[#2B7DE9] focus:bg-white focus:outline-none focus:ring-4 focus:ring-[#2B7DE9]/10"
-                    />
-                  </div>
-                </div>
-                <div>
-                  <label className="mb-2 block text-sm font-medium text-zinc-700">Subject</label>
-                  <input
-                    type="text"
-                    placeholder="How can we help?"
-                    className="w-full rounded-xl border border-zinc-200 bg-zinc-50/50 px-4 py-3 text-sm transition-all duration-200 placeholder:text-zinc-400 focus:border-[#2B7DE9] focus:bg-white focus:outline-none focus:ring-4 focus:ring-[#2B7DE9]/10"
-                  />
-                </div>
-                <div>
-                  <label className="mb-2 block text-sm font-medium text-zinc-700">Message</label>
-                  <textarea
-                    rows={5}
-                    placeholder="Tell us about your risk management needs..."
-                    className="w-full rounded-xl border border-zinc-200 bg-zinc-50/50 px-4 py-3 text-sm transition-all duration-200 placeholder:text-zinc-400 focus:border-[#2B7DE9] focus:bg-white focus:outline-none focus:ring-4 focus:ring-[#2B7DE9]/10"
-                  />
-                </div>
-                <a
-                  href={`mailto:${contactEmail}?subject=Contact%20Form%20Enquiry`}
-                  className="inline-block rounded-xl bg-gradient-to-r from-[#2B7DE9] to-[#1a5fc4] px-8 py-3.5 font-semibold text-white shadow-lg shadow-[#2B7DE9]/25 transition-all duration-200 hover:-translate-y-0.5 hover:shadow-xl hover:shadow-[#2B7DE9]/30"
-                >
-                  Send Message
-                </a>
-              </form>
+              <div className="mt-8">
+                <ContactForm variant="contact" />
+              </div>
             </div>
           </div>
 

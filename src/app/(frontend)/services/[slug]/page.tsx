@@ -91,7 +91,7 @@ export default async function ServiceDetailPage({ params }: Props) {
           </p>
           <div className="mt-6">
             <Link
-              href={ctaBlock?.buttonHref || '/book-consultation'}
+              href={ctaBlock?.buttonHref || '/contact'}
               className="inline-block rounded-lg bg-[#2B7DE9] px-6 py-3 font-semibold text-white shadow-md transition-all hover:bg-blue-700 hover:shadow-lg"
             >
               {ctaBlock?.buttonLabel || 'Book a Consultation'}
@@ -107,6 +107,7 @@ const queryServicePage = cache(async (slug: string) => {
   const payload = await getPayload({ config: configPromise })
   const result = await payload.find({
     collection: 'pages',
+    depth: 2,
     limit: 1,
     pagination: false,
     overrideAccess: false,

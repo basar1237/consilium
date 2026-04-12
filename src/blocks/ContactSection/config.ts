@@ -62,13 +62,16 @@ export const ContactSection: Block = {
     {
       name: 'ctaButtonHref',
       type: 'text',
-      defaultValue: '/book-consultation',
+      defaultValue: '/contact',
     },
     {
       name: 'email',
       type: 'email',
       defaultValue: 'basaryldrm1237@gmail.com',
-      admin: { description: 'Email address for the mailto link on form submit' },
+      admin: {
+        description:
+          'Contact form submissions are sent to this address.',
+      },
     },
   ],
 }

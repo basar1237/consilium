@@ -1,7 +1,14 @@
 {
   "permissions": {
     "allow": [
-      "Bash(npx next:*)"
+      "Bash(npx next:*)",
+      "Bash(find /c/Users/basary/test-consilium/node_modules/.pnpm/@payloadcms+richtext-lexica*/node_modules/@payloadcms/richtext-lexical/dist -name \"*.d.ts\")",
+      "Bash(ls /c/Users/basary/test-consilium/node_modules/.pnpm/@payloadcms+richtext-lexica_2e0a20e41acf19fba663badb23b2d62e/node_modules/@payloadcms/richtext-lexical/dist/features/ -d */)",
+      "Bash(ls -d /c/Users/basary/test-consilium/node_modules/.pnpm/@payloadcms+richtext-lexica_2e0a20e41acf19fba663badb23b2d62e/node_modules/@payloadcms/richtext-lexical/dist/features/*/)",
+      "Bash(echo \"exit: $?\")"
+    ],
+    "additionalDirectories": [
+      "\\tmp"
     ]
   }
 }

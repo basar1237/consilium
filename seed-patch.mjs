@@ -1,9 +1,8 @@
 /**
  * Patch script: updates existing CMS pages to use new block types
- * - Contact page → contactSection block (with form)
- * - Book Consultation → consultationForm block (with form)
+ * - Contact page → contactSection block (with form); Book CTA → /contact (tek form sayfası)
  * - About page → companyOverview block
- * - Header → Services link to /#services-hub
+ * - Header → Services link to /#services-hub; header CTA → /contact
  *
  * Usage: node seed-patch.mjs
  */
@@ -72,6 +71,18 @@ async function main() {
   }
   console.log('Logged in\n')
 
+  // Shared Payload form (same as Contact + Book Consultation)
+  const formsList = await apiGet('/forms?limit=50', token)
+  const sharedForm =
+    formsList.docs?.find((f) => /contact|consultation/i.test(f.title || '')) ||
+    formsList.docs?.[0]
+  const sharedFormId = sharedForm?.id
+  if (sharedFormId) {
+    console.log(`Using form id ${sharedFormId} (${sharedForm?.title || 'untitled'})\n`)
+  } else {
+    console.log('No form found — create one in Admin (Forms) and re-run patch.\n')
+  }
+
   // Find pages by slug
   async function findPage(slug) {
     const res = await apiGet(`/pages?where[slug][equals]=${slug}&limit=1`, token)
@@ -98,8 +109,9 @@ async function main() {
           ctaTitle: 'Ready to Get Started?',
           ctaDescription: 'Book a free consultation to discuss how we can help your organisation manage risk effectively.',
           ctaButtonLabel: 'Book a Consultation',
-          ctaButtonHref: '/book-consultation',
+          ctaButtonHref: '/contact',
           email: 'basaryldrm1237@gmail.com',
+          ...(sharedFormId ? { form: sharedFormId } : {}),
         },
       ],
       _status: 'published',
@@ -109,25 +121,7 @@ async function main() {
     console.log('   Contact page not found - run seed-all.mjs first')
   }
 
-  // 2. Patch BOOK CONSULTATION page
-  console.log('2. Patching Book Consultation page...')
-  const consultPage = await findPage('book-consultation')
-  if (consultPage) {
-    await api(`/pages/${consultPage.id}`, {
-      layout: [
-        {
-          blockType: 'consultationForm',
-          title: 'Book a free risk consultation',
-          description: 'Tell us about your organisation and risk management priorities. We will review your request and get back to you to arrange a no-obligation conversation with a senior advisor.',
-          email: 'basaryldrm1237@gmail.com',
-        },
-      ],
-      _status: 'published',
-    }, token, 'PATCH')
-    console.log(`   Book Consultation updated (${consultPage.id})`)
-  } else {
-    console.log('   Book Consultation page not found - run seed-all.mjs first')
-  }
+  // 2. Legacy /book-consultation sayfası: Next redirect → /contact (seed-all artık oluşturmuyor). İstersen Admin’den sil.
 
   // 3. Patch ABOUT page
   console.log('3. Patching About page...')
@@ -177,7 +171,7 @@ async function main() {
           title: 'Ready to Work With Us?',
           description: 'Get in touch to discuss how Consilium can help your organisation manage risk more effectively.',
           buttonLabel: 'Book a Consultation',
-          buttonHref: '/book-consultation',
+          buttonHref: '/contact',
         },
       ],
       _status: 'published',
@@ -199,7 +193,7 @@ async function main() {
       { label: 'Blog', href: '/blog' },
       { label: 'Contact', href: '/contact' },
     ],
-    ctaButton: { label: 'Book Consultation', href: '/book-consultation' },
+    ctaButton: { label: 'Book Consultation', href: '/contact' },
   }, token, 'PATCH')
   console.log('   Header updated\n')
 
@@ -208,8 +202,7 @@ async function main() {
   console.log('═══════════════════════════════════════════════════')
   console.log()
   console.log('  Updated pages:')
-  console.log('    /contact     → contactSection block (with form)')
-  console.log('    /book-consultation → consultationForm block (with form)')
+  console.log('    /contact     → contactSection block (with form); tüm “Book” CTA’lar /contact')
   console.log('    /about       → companyOverview + teamGrid + whyChooseUs + finalCta')
   console.log('    Header       → Services link → /#services-hub')
 }

@@ -5,7 +5,6 @@ import type { Page } from '@/payload-types'
 import { ArchiveBlock } from '@/blocks/ArchiveBlock/Component'
 import { CallToActionBlock } from '@/blocks/CallToAction/Component'
 import { ContentBlock } from '@/blocks/Content/Component'
-import { FormBlock } from '@/blocks/Form/Component'
 import { MediaBlock } from '@/blocks/MediaBlock/Component'
 import { ConsiliumHeroBlockComponent } from '@/blocks/ConsiliumHero/Component'
 import { QuickServiceHubBlockComponent } from '@/blocks/QuickServiceHub/Component'
@@ -26,12 +25,12 @@ import { TeamGridBlockComponent } from '@/blocks/TeamGrid/Component'
 import { CompanyOverviewBlockComponent } from '@/blocks/CompanyOverview/Component'
 import { ContactSectionBlockComponent } from '@/blocks/ContactSection/Component'
 import { ConsultationFormBlockComponent } from '@/blocks/ConsultationForm/Component'
+import { CenteredProseBlockComponent } from '@/blocks/CenteredProse/Component'
 
 const blockComponents = {
   archive: ArchiveBlock,
   content: ContentBlock,
   cta: CallToActionBlock,
-  formBlock: FormBlock,
   mediaBlock: MediaBlock,
   consiliumHero: ConsiliumHeroBlockComponent,
   quickServiceHub: QuickServiceHubBlockComponent,
@@ -52,6 +51,7 @@ const blockComponents = {
   companyOverview: CompanyOverviewBlockComponent,
   contactSection: ContactSectionBlockComponent,
   consultationForm: ConsultationFormBlockComponent,
+  centeredProse: CenteredProseBlockComponent,
 }
 
 export const RenderBlocks: React.FC<{
@@ -93,6 +93,7 @@ export const RenderBlocks: React.FC<{
                 'companyOverview',
                 'contactSection',
                 'consultationForm',
+                'centeredProse',
               ].includes(blockType)
 
               if (stickyBlocks.includes(blockType)) {
