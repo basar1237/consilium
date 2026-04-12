@@ -16,7 +16,7 @@ export const SiteSettings: GlobalConfig = {
     {
       name: 'contactEmail',
       type: 'email',
-      defaultValue: 'basaryldrm1237@gmail.com',
+      defaultValue: 'info@consiliumriskadvisorygroup.co.uk',
       required: true,
     },
     {

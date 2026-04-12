@@ -147,8 +147,8 @@ function sharedContactFormPayload() {
     },
     emails: [
       {
-        emailFrom: '"Consilium" <basaryldrm1237@gmail.com>',
-        emailTo: 'basaryldrm1237@gmail.com',
+        emailFrom: '"Consilium" <info@consiliumriskadvisorygroup.co.uk>',
+        emailTo: 'info@consiliumriskadvisorygroup.co.uk',
         subject: 'New form submission',
         message: {
           root: {
@@ -245,14 +245,14 @@ async function main() {
   // 1. Create admin user
   console.log('1. Creating admin user...')
   await api('/users/first-register', {
-    email: 'basaryldrm1237@gmail.com',
+    email: 'info@consiliumriskadvisorygroup.co.uk',
     password: '1139basaR.',
   })
 
   // 2. Login
   console.log('2. Logging in...')
   const login = await api('/users/login', {
-    email: 'basaryldrm1237@gmail.com',
+    email: 'info@consiliumriskadvisorygroup.co.uk',
     password: '1139basaR.',
   })
   const token = login.token
@@ -803,7 +803,7 @@ async function main() {
           formTitle: 'Send Us a Message',
           contactInfoTitle: 'Contact Information',
           contactDetails: [
-            { label: 'Email', value: 'basaryldrm1237@gmail.com', href: 'mailto:basaryldrm1237@gmail.com' },
+            { label: 'Email', value: 'info@consiliumriskadvisorygroup.co.uk', href: 'mailto:info@consiliumriskadvisorygroup.co.uk' },
             { label: 'Address', value: 'London, United Kingdom' },
             { label: 'Working Hours', value: 'Monday – Friday, 9:00 AM – 5:30 PM GMT' },
           ],
@@ -811,7 +811,7 @@ async function main() {
           ctaDescription: 'Book a free consultation to discuss how we can help your organisation manage risk effectively.',
           ctaButtonLabel: 'Book a Consultation',
           ctaButtonHref: '/contact',
-          email: 'basaryldrm1237@gmail.com',
+          email: 'info@consiliumriskadvisorygroup.co.uk',
           ...(sharedFormId ? { form: sharedFormId } : {}),
         },
       ],
@@ -1002,7 +1002,7 @@ async function main() {
         { label: 'Contact', href: '/contact' },
       ],
       contactTitle: 'Contact',
-      email: 'basaryldrm1237@gmail.com',
+      email: 'info@consiliumriskadvisorygroup.co.uk',
       address: 'London, United Kingdom',
       copyrightText: '© 2026 Consilium Risk Advisory Group. All rights reserved.',
       socialLinks: [
@@ -1037,7 +1037,7 @@ async function main() {
   console.log('  Categories: 3')
   console.log()
   console.log('  Admin:    http://localhost:3000/admin')
-  console.log('  Email:    basaryldrm1237@gmail.com')
+  console.log('  Email:    info@consiliumriskadvisorygroup.co.uk')
   console.log('  Password: consilium2026')
 }
 

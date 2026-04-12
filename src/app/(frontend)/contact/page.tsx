@@ -7,7 +7,7 @@ export const metadata: Metadata = {
     'Get in touch with Consilium Risk Advisory Group for risk management consultation and enquiries.',
 }
 
-const CONTACT_EMAIL = 'basaryldrm1237@gmail.com'
+const CONTACT_EMAIL = 'info@consiliumriskadvisorygroup.co.uk@gmail.com'
 
 type ContactDetailRow = { label: string; value: string; href?: string }
 

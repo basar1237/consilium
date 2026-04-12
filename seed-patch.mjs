@@ -61,7 +61,7 @@ async function main() {
   // Login
   console.log('Logging in...')
   const login = await api('/users/login', {
-    email: 'basaryldrm1237@gmail.com',
+    email: 'info@consiliumriskadvisorygroup.co.uk',
     password: '1139basaR.',
   })
   const token = login.token
@@ -102,7 +102,7 @@ async function main() {
           formTitle: 'Send Us a Message',
           contactInfoTitle: 'Contact Information',
           contactDetails: [
-            { label: 'Email', value: 'basaryldrm1237@gmail.com', href: 'mailto:basaryldrm1237@gmail.com' },
+            { label: 'Email', value: 'info@consiliumriskadvisorygroup.co.uk', href: 'mailto:info@consiliumriskadvisorygroup.co.uk' },
             { label: 'Address', value: 'London, United Kingdom' },
             { label: 'Working Hours', value: 'Monday – Friday, 9:00 AM – 5:30 PM GMT' },
           ],
@@ -110,7 +110,7 @@ async function main() {
           ctaDescription: 'Book a free consultation to discuss how we can help your organisation manage risk effectively.',
           ctaButtonLabel: 'Book a Consultation',
           ctaButtonHref: '/contact',
-          email: 'basaryldrm1237@gmail.com',
+          email: 'info@consiliumriskadvisorygroup.co.uk',
           ...(sharedFormId ? { form: sharedFormId } : {}),
         },
       ],

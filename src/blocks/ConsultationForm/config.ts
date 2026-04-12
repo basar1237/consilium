@@ -24,7 +24,7 @@ export const ConsultationForm: Block = {
       name: 'email',
       type: 'email',
       required: true,
-      defaultValue: 'basaryldrm1237@gmail.com',
+      defaultValue: 'info@consiliumriskadvisorygroup.co.uk',
       admin: {
         description:
           'Consultation request emails are sent to this address.',

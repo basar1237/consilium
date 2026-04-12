@@ -22,7 +22,7 @@ async function main() {
   const login = await fetch(`${BASE}/users/login`, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ email: 'basaryldrm1237@gmail.com', password: '1139basaR.' }),
+    body: JSON.stringify({ email: 'info@consiliumriskadvisorygroup.co.uk', password: '1139basaR.' }),
   }).then(r => r.json())
   const token = login.token
 

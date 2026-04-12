@@ -20,7 +20,7 @@
 - Dark: `#1A1A2E`
 - White: `#FFFFFF`
 - Font: Inter (via next/font/google)
-- All CTAs → `mailto:basaryldrm1237@gmail.com`
+- All CTAs → `mailto:info@consiliumriskadvisorygroup.co.uk`
 
 ## Pages
 

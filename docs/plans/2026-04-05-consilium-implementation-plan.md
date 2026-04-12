@@ -438,7 +438,7 @@ export function CTAButton({
 
   return (
     <Link
-      href="mailto:basaryldrm1237@gmail.com"
+      href="mailto:info@consiliumriskadvisorygroup.co.uk"
       className={`${baseStyles} ${variants[variant]} ${className}`}
     >
       {text}

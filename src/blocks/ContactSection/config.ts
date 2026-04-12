@@ -17,8 +17,7 @@ export const ContactSection: Block = {
     {
       name: 'subtitle',
       type: 'text',
-      defaultValue:
-        "We'd love to hear from you. Reach out to discuss your risk management needs.",
+      defaultValue: "We'd love to hear from you. Reach out to discuss your risk management needs.",
     },
     {
       name: 'formTitle',
@@ -67,10 +66,9 @@ export const ContactSection: Block = {
     {
       name: 'email',
       type: 'email',
-      defaultValue: 'basaryldrm1237@gmail.com',
+      defaultValue: 'info@consiliumriskadvisorygroup.co.uk',
       admin: {
-        description:
-          'Contact form submissions are sent to this address.',
+        description: 'Contact form submissions are sent to this address.',
       },
     },
   ],
