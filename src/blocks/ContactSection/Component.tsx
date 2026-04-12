@@ -28,7 +28,9 @@ export const ContactSectionBlockComponent: React.FC<ContactSectionBlock> = ({
           <div className="lg:col-span-3">
             <div className="rounded-2xl border border-zinc-200/80 bg-white p-8 shadow-sm sm:p-10">
               <h2 className="text-2xl font-bold text-[#1A1A2E]">{formTitle}</h2>
-              <p className="mt-2 text-sm text-zinc-500">Fill out the form and we&rsquo;ll get back to you shortly.</p>
+              <p className="mt-2 text-sm text-zinc-500">
+                Fill out the form and we&rsquo;ll get back to you shortly.
+              </p>
               <div className="mt-8">
                 <ContactForm variant="contact" />
               </div>
@@ -42,15 +44,29 @@ export const ContactSectionBlockComponent: React.FC<ContactSectionBlock> = ({
                 {(contactDetails || []).map((item, i) => (
                   <div key={i} className="flex items-start gap-4">
                     <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-[#2B7DE9]/10 text-[#2B7DE9]">
-                      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.5} strokeLinecap="round" strokeLinejoin="round" className="h-5 w-5">
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        strokeWidth={1.5}
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        className="h-5 w-5"
+                      >
                         <circle cx="12" cy="12" r="10" />
                         <path d="m9 12 2 2 4-4" />
                       </svg>
                     </div>
                     <div>
-                      <p className="text-xs font-medium uppercase tracking-wider text-zinc-400">{item.label}</p>
+                      <p className="text-xs font-medium uppercase tracking-wider text-zinc-400">
+                        {item.label}
+                      </p>
                       {item.href ? (
-                        <a href={item.href} className="mt-0.5 block font-semibold text-[#1A1A2E] transition-colors hover:text-[#2B7DE9]">
+                        <a
+                          href={item.href}
+                          className="mt-0.5 block font-semibold text-[#1A1A2E] transition-colors hover:text-[#2B7DE9] text-sm"
+                        >
                           {item.value}
                         </a>
                       ) : (
@@ -63,7 +79,10 @@ export const ContactSectionBlockComponent: React.FC<ContactSectionBlock> = ({
             </div>
 
             <div className="relative isolate overflow-hidden rounded-2xl bg-gradient-to-br from-[#1A1A2E] via-[#1f2340] to-[#252b4a] p-8 text-white shadow-xl">
-              <div className="pointer-events-none absolute -right-10 -top-10 h-32 w-32 rounded-full bg-[#2B7DE9]/20 blur-2xl" aria-hidden />
+              <div
+                className="pointer-events-none absolute -right-10 -top-10 h-32 w-32 rounded-full bg-[#2B7DE9]/20 blur-2xl"
+                aria-hidden
+              />
               <h3 className="relative text-xl font-bold">{ctaTitle}</h3>
               {ctaDescription && (
                 <p className="relative mt-3 leading-relaxed text-white/70">{ctaDescription}</p>

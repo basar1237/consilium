@@ -76,7 +76,7 @@ export default function ContactPage() {
                         {item.href ? (
                           <a
                             href={item.href}
-                            className="mt-0.5 block font-semibold text-[#1A1A2E] transition-colors hover:text-[#2B7DE9]"
+                            className="mt-0.5 block font-semibold text-[#1A1A2E] transition-colors hover:text-[#2B7DE9] text-sm"
                           >
                             {item.value}
                           </a>
