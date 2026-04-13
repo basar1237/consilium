@@ -7,7 +7,7 @@ export const metadata: Metadata = {
     'Get in touch with Consilium Risk Advisory Group for risk management consultation and enquiries.',
 }
 
-const CONTACT_EMAIL = 'info@consiliumriskadvisorygroup.co.uk@gmail.com'
+const CONTACT_EMAIL = 'info@consiliumriskadvisorygroup.co.uk'
 
 type ContactDetailRow = { label: string; value: string; href?: string }
 
@@ -81,7 +81,9 @@ export default function ContactPage() {
                             {item.value}
                           </a>
                         ) : (
-                          <p className="mt-0.5 font-semibold text-[#1A1A2E]">{item.value}</p>
+                          <p className="mt-0.5 font-semibold text-[#1A1A2E] text-sm">
+                            {item.value}
+                          </p>
                         )}
                       </div>
                     </div>
