@@ -2,15 +2,12 @@ import { MediaBlock } from '@/blocks/MediaBlock/Component'
 import {
   DefaultNodeTypes,
   SerializedBlockNode,
-  SerializedLinkNode,
   type DefaultTypedEditorState,
 } from '@payloadcms/richtext-lexical'
 import {
   JSXConvertersFunction,
-  LinkJSXConverter,
   RichText as ConvertRichText,
 } from '@payloadcms/richtext-lexical/react'
-import Link from 'next/link'
 
 import { CodeBlock, CodeBlockProps } from '@/blocks/Code/Component'
 
@@ -47,49 +44,6 @@ type NodeTypes =
   | DefaultNodeTypes
   | SerializedBlockNode<CTABlockProps | MediaBlockProps | BannerBlockProps | CodeBlockProps>
 
-const internalDocToHref = ({ linkNode }: { linkNode: SerializedLinkNode }) => {
-  const { value, relationTo } = linkNode.fields.doc!
-  if (typeof value !== 'object') {
-    throw new Error('Expected value to be an object')
-  }
-  const slug = value.slug
-  return relationTo === 'posts' ? `/posts/${slug}` : `/${slug}`
-}
-
-const BLOCK_LEVEL_TYPES = new Set([
-  'heading',
-  'paragraph',
-  'list',
-  'listitem',
-  'quote',
-  'block',
-  'table',
-  'tablerow',
-  'tablecell',
-  'upload',
-  'horizontalrule',
-])
-
-function hasBlockLevelChildren(children: any[]): boolean {
-  if (!children) return false
-  return children.some(
-    (child) =>
-      BLOCK_LEVEL_TYPES.has(child.type) ||
-      (child.children && hasBlockLevelChildren(child.children)),
-  )
-}
-
-function getLinkHref(node: SerializedLinkNode): string {
-  const { fields } = node
-  if (fields.linkType === 'internal' && fields.doc) {
-    const { value, relationTo } = fields.doc
-    if (typeof value === 'object' && value.slug) {
-      return relationTo === 'posts' ? `/posts/${value.slug}` : `/${value.slug}`
-    }
-  }
-  return fields.url || '#'
-}
-
 const buildJsxConverters = (
   getLexicalBlockClassName?: RichTextLexicalBlockClassNameFn,
 ): JSXConvertersFunction<NodeTypes> => ({ defaultConverters }) => ({
@@ -120,39 +74,13 @@ const buildJsxConverters = (
       undefined
     return <NodeTag className={cn(alignClass)}>{children}</NodeTag>
   },
-  ...LinkJSXConverter({ internalDocToHref }),
   link: ({ node, nodesToJSX }) => {
     const children = nodesToJSX({ nodes: node.children })
-    if (hasBlockLevelChildren(node.children)) {
-      const href = getLinkHref(node)
-      return (
-        <div data-link-href={href} className="cursor-pointer">
-          {children}
-        </div>
-      )
-    }
-    const href = getLinkHref(node)
-    const isInternal = node.fields.linkType === 'internal'
-    if (isInternal) {
-      return <Link href={href}>{children}</Link>
-    }
-    return (
-      <a href={href} target={node.fields.newTab ? '_blank' : undefined} rel="noopener noreferrer">
-        {children}
-      </a>
-    )
+    return <>{children}</>
   },
   autolink: ({ node, nodesToJSX }) => {
     const children = nodesToJSX({ nodes: node.children })
-    if (hasBlockLevelChildren(node.children)) {
-      return <div>{children}</div>
-    }
-    const href = node.fields.url || '#'
-    return (
-      <a href={href} target={node.fields.newTab ? '_blank' : undefined} rel="noopener noreferrer">
-        {children}
-      </a>
-    )
+    return <>{children}</>
   },
   blocks: {
     banner: ({ node }) => <BannerBlock className="col-start-2 mb-4" {...node.fields} />,
