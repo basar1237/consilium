@@ -66,13 +66,7 @@ export default buildConfig({
     push: true,
   }),
   collections: [Pages, Posts, Media, Categories, Users, ContactEnquiries],
-  cors: [
-    getServerSideURL(),
-    process.env.VERCEL_PROJECT_PRODUCTION_URL
-      ? `https://${process.env.VERCEL_PROJECT_PRODUCTION_URL}`
-      : '',
-    process.env.VERCEL_URL ? `https://${process.env.VERCEL_URL}` : '',
-  ].filter(Boolean),
+  cors: [getServerSideURL()].filter(Boolean),
   globals: [Header, Footer, SiteSettings],
   plugins,
   secret: process.env.PAYLOAD_SECRET,
