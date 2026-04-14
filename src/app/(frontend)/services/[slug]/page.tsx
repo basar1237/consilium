@@ -53,13 +53,13 @@ export default async function ServiceDetailPage({ params }: Props) {
           <span className="text-[#1A1A2E] font-medium">{page.title}</span>
         </nav>
 
-        <h1 className="text-3xl font-bold tracking-tight text-[#1A1A2E] sm:text-4xl lg:text-5xl text-center">
+        <h1 className="text-3xl font-bold tracking-tight text-[#1A1A2E] sm:text-4xl lg:text-5xl text-left">
           {page.title}
         </h1>
       </div>
 
       {/* Render all layout blocks (content, insightTabs, finalCta, etc.) */}
-      <div className="mx-auto max-w-4xl px-6 lg:px-8 [&_.container]:mx-auto [&_.container]:max-w-none [&_.container]:px-0 [&_h2]:text-center [&_h3]:text-center [&_h4]:text-center">
+      <div className="mx-auto max-w-4xl px-6 lg:px-8">
         <RenderBlocks blocks={page.layout} />
       </div>
     </article>

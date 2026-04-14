@@ -72,6 +72,7 @@ export const RenderBlocks: React.FC<{
 
             if (Block) {
               const stickyBlocks = ['sectionNav', 'floatingSocial']
+              const fullWidthBlocks = ['finalCta']
 
               const isConsiliumBlock = [
                 'consiliumHero',
@@ -102,6 +103,18 @@ export const RenderBlocks: React.FC<{
                     {/* @ts-expect-error there may be some mismatch between the expected types here */}
                     <Block {...block} />
                   </Fragment>
+                )
+              }
+
+              if (fullWidthBlocks.includes(blockType)) {
+                return (
+                  <div
+                    key={index}
+                    className="relative left-1/2 right-1/2 -ml-[50vw] -mr-[50vw] w-screen"
+                  >
+                    {/* @ts-expect-error there may be some mismatch between the expected types here */}
+                    <Block {...block} />
+                  </div>
                 )
               }
 
