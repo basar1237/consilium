@@ -1,101 +1,82 @@
 import type { Metadata } from 'next'
-import { ContactForm } from '@/components/ContactForm'
 
-export const metadata: Metadata = {
-  title: 'Contact Us | Consilium Risk Advisory Group',
-  description:
-    'Get in touch with Consilium Risk Advisory Group for risk management consultation and enquiries.',
-}
+import configPromise from '@payload-config'
+import { getPayload, type RequiredDataFromCollectionSlug } from 'payload'
+import { draftMode } from 'next/headers'
+import React, { cache } from 'react'
 
-const CONTACT_EMAIL = 'info@consiliumriskadvisorygroup.co.uk'
+import { RenderBlocks } from '@/blocks/RenderBlocks'
+import { RenderHero } from '@/heros/RenderHero'
+import { generateMeta } from '@/utilities/generateMeta'
+import { LivePreviewListener } from '@/components/LivePreviewListener'
 
-type ContactDetailRow = { label: string; value: string; href?: string }
+export default async function ContactPage() {
+  const { isEnabled: draft } = await draftMode()
 
-const contactDetails: ContactDetailRow[] = [
-  { label: 'Email', value: CONTACT_EMAIL, href: `mailto:${CONTACT_EMAIL}` },
-  { label: 'Address', value: 'Sheffield, United Kingdom' },
-  { label: 'Working Hours', value: 'Monday – Saturday, 9:00 AM – 6:00 PM GMT' },
-]
+  const page = await queryPageBySlug({ slug: 'contact' })
 
-export default function ContactPage() {
+  if (!page) {
+    return (
+      <div className="flex min-h-[60vh] items-center justify-center">
+        <div className="text-center">
+          <h1 className="text-2xl font-bold text-[#1A1A2E]">Contact page not found</h1>
+          <p className="mt-2 text-zinc-600">
+            Create a page with slug{' '}
+            <code className="rounded bg-zinc-100 px-2 py-1 font-mono text-sm">contact</code> in
+            the{' '}
+            <a href="/admin/collections/pages/create" className="text-[#2B7DE9] underline">
+              admin panel
+            </a>
+            .
+          </p>
+        </div>
+      </div>
+    )
+  }
+
+  const { hero, layout } = page
+
   return (
     <article>
-      <section className="py-20">
-        <div className="mx-auto max-w-7xl px-6 lg:px-8">
-          <div className="mx-auto max-w-3xl text-center">
-            <h1 className="text-3xl font-bold tracking-tight text-[#1A1A2E] sm:text-4xl lg:text-5xl">
-              Contact Us
-            </h1>
-            <p className="mt-4 text-lg text-zinc-600">
-              We&apos;d love to hear from you. Reach out to discuss your risk management needs.
-            </p>
-          </div>
-
-          <div className="mt-14 grid gap-10 lg:grid-cols-5">
-            <div className="lg:col-span-3">
-              <div
-                id="lead-form"
-                className="rounded-2xl border border-zinc-200/80 bg-white p-8 shadow-sm sm:p-10"
-              >
-                <h2 className="text-2xl font-bold text-[#1A1A2E]">Send Us a Message</h2>
-                <p className="mt-2 text-sm text-zinc-500">
-                  Complete the form and we will respond as soon as we can.
-                </p>
-                <div className="mt-8">
-                  <ContactForm variant="contact" />
-                </div>
-              </div>
-            </div>
-
-            <div className="space-y-6 lg:col-span-2">
-              <div className="rounded-2xl border border-zinc-200/80 bg-white p-8 shadow-sm">
-                <h2 className="text-xl font-bold text-[#1A1A2E]">Contact Information</h2>
-                <div className="mt-6 space-y-6">
-                  {contactDetails.map((item, i) => (
-                    <div key={i} className="flex items-start gap-4">
-                      <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-[#2B7DE9]/10 text-[#2B7DE9]">
-                        <svg
-                          xmlns="http://www.w3.org/2000/svg"
-                          viewBox="0 0 24 24"
-                          fill="none"
-                          stroke="currentColor"
-                          strokeWidth={1.5}
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                          className="h-5 w-5"
-                          aria-hidden
-                        >
-                          <circle cx="12" cy="12" r="10" />
-                          <path d="m9 12 2 2 4-4" />
-                        </svg>
-                      </div>
-                      <div>
-                        <p className="text-xs font-medium uppercase tracking-wider text-zinc-400">
-                          {item.label}
-                        </p>
-                        {item.href ? (
-                          <a
-                            href={item.href}
-                            className="mt-0.5 block font-semibold text-[#1A1A2E] transition-colors hover:text-[#2B7DE9] text-sm"
-                          >
-                            {item.value}
-                          </a>
-                        ) : (
-                          <p className="mt-0.5 font-semibold text-[#1A1A2E] text-sm">
-                            {item.value}
-                          </p>
-                        )}
-                      </div>
-                    </div>
-                  ))}
-                </div>
-              </div>
-
-
-            </div>
-          </div>
-        </div>
-      </section>
+      {draft && <LivePreviewListener />}
+      <RenderHero {...hero} />
+      <RenderBlocks blocks={layout} />
     </article>
   )
 }
+
+export async function generateMetadata(): Promise<Metadata> {
+  const page = await queryPageBySlug({ slug: 'contact' })
+
+  if (page) {
+    return generateMeta({ doc: page })
+  }
+
+  return {
+    title: 'Contact Us | Consilium Risk Advisory Group',
+    description:
+      'Get in touch with Consilium Risk Advisory Group for risk management consultation and enquiries.',
+  }
+}
+
+const queryPageBySlug = cache(async ({ slug }: { slug: string }) => {
+  const { isEnabled: draft } = await draftMode()
+
+  const payload = await getPayload({ config: configPromise })
+
+  const result = await payload.find({
+    collection: 'pages',
+    draft,
+    depth: 2,
+    limit: 1,
+    pagination: false,
+    overrideAccess: draft,
+    where: {
+      slug: {
+        equals: slug,
+      },
+    },
+  })
+
+  return result.docs?.[0] || null
+})

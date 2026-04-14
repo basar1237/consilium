@@ -77,25 +77,26 @@ export const ContactSectionBlockComponent: React.FC<ContactSectionBlock> = ({
                 ))}
               </div>
             </div>
-
-            <div className="relative isolate overflow-hidden rounded-2xl bg-gradient-to-br from-[#1A1A2E] via-[#1f2340] to-[#252b4a] p-8 text-white shadow-xl">
-              <div
-                className="pointer-events-none absolute -right-10 -top-10 h-32 w-32 rounded-full bg-[#2B7DE9]/20 blur-2xl"
-                aria-hidden
-              />
-              <h3 className="relative text-xl font-bold">{ctaTitle}</h3>
-              {ctaDescription && (
-                <p className="relative mt-3 leading-relaxed text-white/70">{ctaDescription}</p>
-              )}
-              {ctaButtonLabel && ctaButtonHref && (
-                <Link
-                  href={ctaButtonHref}
-                  className="relative mt-6 inline-block rounded-xl bg-white px-6 py-3 font-semibold text-[#2B7DE9] shadow-lg transition-all duration-200 hover:bg-blue-50 hover:shadow-xl text-sm"
-                >
-                  {ctaButtonLabel}
-                </Link>
-              )}
-            </div>
+            {ctaDescription && (
+              <div className="relative isolate overflow-hidden rounded-2xl bg-gradient-to-br from-[#1A1A2E] via-[#1f2340] to-[#252b4a] p-8 text-white shadow-xl">
+                <div
+                  className="pointer-events-none absolute -right-10 -top-10 h-32 w-32 rounded-full bg-[#2B7DE9]/20 blur-2xl"
+                  aria-hidden
+                />
+                <h3 className="relative text-xl font-bold">{ctaTitle}</h3>
+                {ctaDescription && (
+                  <p className="relative mt-3 leading-relaxed text-white/70">{ctaDescription}</p>
+                )}
+                {ctaButtonLabel && ctaButtonHref && (
+                  <Link
+                    href={ctaButtonHref}
+                    className="relative mt-6 inline-block rounded-xl bg-white px-6 py-3 font-semibold text-[#2B7DE9] shadow-lg transition-all duration-200 hover:bg-blue-50 hover:shadow-xl text-sm"
+                  >
+                    {ctaButtonLabel}
+                  </Link>
+                )}
+              </div>
+            )}
           </div>
         </div>
       </div>
