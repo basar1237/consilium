@@ -110,7 +110,7 @@ export const RenderBlocks: React.FC<{
                 return (
                   <div
                     key={index}
-                    className="relative left-1/2 right-1/2 -ml-[50vw] -mr-[50vw] w-screen"
+                    className="relative left-1/2 -ml-[50vw] w-screen max-w-[100vw] overflow-x-clip"
                   >
                     {/* @ts-expect-error there may be some mismatch between the expected types here */}
                     <Block {...block} />
