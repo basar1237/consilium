@@ -8,7 +8,7 @@ const sections = [
   { id: 'testimonials', label: 'Testimonials' },
   { id: 'why-us', label: 'Why Us' },
   { id: 'faq', label: 'FAQ' },
-  { id: 'blog', label: 'Blog' },
+  { id: 'blog', label: 'Perspectives' },
 ] as const
 
 export default function SectionNav() {

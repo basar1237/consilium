@@ -280,6 +280,10 @@ export interface Post {
   };
   publishedAt?: string | null;
   authors?: (number | User)[] | null;
+  /**
+   * Optional. If filled, overrides the authors relation on the frontend.
+   */
+  authorName?: string | null;
   populatedAuthors?:
     | {
         id?: string | null;
@@ -1817,6 +1821,7 @@ export interface PostsSelect<T extends boolean = true> {
       };
   publishedAt?: T;
   authors?: T;
+  authorName?: T;
   populatedAuthors?:
     | T
     | {

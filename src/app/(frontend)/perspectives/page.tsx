@@ -8,7 +8,7 @@ export const dynamic = 'force-static'
 export const revalidate = 600
 
 export const metadata: Metadata = {
-  title: 'Blog & Insights | Consilium Risk Advisory Group',
+  title: 'Perspectives | Consilium Risk Advisory Group',
   description:
     'Expert insights on risk management, compliance, operational resilience, and more from the Consilium team.',
 }
@@ -58,7 +58,7 @@ export default async function BlogPage() {
                   </span>
                   <h2 className="mt-3 text-lg font-semibold text-[#1A1A2E] line-clamp-2">
                     <Link
-                      href={`/blog/${post.slug}`}
+                      href={`/perspectives/${post.slug}`}
                       className="hover:text-[#2B7DE9] transition-colors"
                     >
                       {post.title}
@@ -71,7 +71,9 @@ export default async function BlogPage() {
                   )}
                   <div className="mt-4 flex items-center justify-between border-t border-zinc-100 pt-4 text-sm text-zinc-500">
                     <span>
-                      {post.populatedAuthors?.map((a) => a.name).join(', ') || 'Consilium Team'}
+                      {post.authorName ||
+                        post.populatedAuthors?.map((a) => a.name).join(', ') ||
+                        'Consilium Team'}
                     </span>
                     {post.publishedAt && (
                       <time dateTime={post.publishedAt}>
@@ -84,7 +86,7 @@ export default async function BlogPage() {
                     )}
                   </div>
                   <Link
-                    href={`/blog/${post.slug}`}
+                    href={`/perspectives/${post.slug}`}
                     className="mt-3 inline-flex items-center gap-1 text-sm font-medium text-[#2B7DE9] hover:text-blue-700 transition-colors"
                   >
                     Read More →

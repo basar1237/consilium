@@ -26,7 +26,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const post = await queryPostBySlug(slug)
   if (!post) return { title: 'Not Found' }
   return {
-    title: `${post.title} | Consilium Blog`,
+    title: `${post.title} | Consilium Perspectives`,
     description: post.meta?.description || '',
   }
 }
@@ -46,10 +46,10 @@ export default async function BlogPostPage({ params }: Props) {
     <article className="py-20">
       <div className="mx-auto max-w-3xl px-6 lg:px-8">
         <Link
-          href="/blog"
+          href="/perspectives"
           className="inline-flex items-center gap-1 text-sm font-medium text-[#2B7DE9] hover:text-blue-700 transition-colors mb-8"
         >
-          ← Back to Blog
+          ← Back to Perspectives
         </Link>
 
         <span className="inline-block rounded-full bg-[#2B7DE9]/10 px-3 py-1 text-xs font-medium text-[#2B7DE9]">
@@ -62,7 +62,10 @@ export default async function BlogPostPage({ params }: Props) {
 
         <div className="mt-4 flex items-center gap-4 text-sm text-zinc-500">
           <span>
-            By {post.populatedAuthors?.map((a) => a.name).join(', ') || 'Consilium Team'}
+            By{' '}
+            {post.authorName ||
+              post.populatedAuthors?.map((a) => a.name).join(', ') ||
+              'Consilium Team'}
           </span>
           {post.publishedAt && (
             <>
@@ -84,7 +87,7 @@ export default async function BlogPostPage({ params }: Props) {
 
         <div className="mt-12 border-t border-zinc-200 pt-8">
           <Link
-            href="/blog"
+            href="/perspectives"
             className="inline-flex items-center gap-1 text-sm font-medium text-[#2B7DE9] hover:text-blue-700 transition-colors"
           >
             ← Back to all articles

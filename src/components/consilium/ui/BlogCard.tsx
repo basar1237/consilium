@@ -22,7 +22,7 @@ export default function BlogCard({ post }: BlogCardProps) {
     categoryColors[post.category] ?? "bg-gray-100 text-gray-800";
 
   return (
-    <Link href={`/blog/${post.slug}`} className="group block">
+    <Link href={`/perspectives/${post.slug}`} className="group block">
       <article className="flex h-full flex-col rounded-xl border border-gray-200 bg-white p-6 transition-all duration-300 group-hover:-translate-y-1 group-hover:shadow-lg">
         <span
           className={`mb-3 inline-block w-fit rounded-full px-3 py-1 text-xs font-semibold ${badgeColor}`}

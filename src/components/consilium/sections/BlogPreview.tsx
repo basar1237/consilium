@@ -25,7 +25,7 @@ export default function BlogPreview() {
                 </span>
                 <h3 className="mt-3 text-lg font-semibold text-[#1A1A2E] line-clamp-2">
                   <Link
-                    href={`/blog/${post.slug}`}
+                    href={`/perspectives/${post.slug}`}
                     className="hover:text-[#2B7DE9] transition-colors"
                   >
                     {post.title}
@@ -45,7 +45,7 @@ export default function BlogPreview() {
                   <span>{post.readingTime} min read</span>
                 </div>
                 <Link
-                  href={`/blog/${post.slug}`}
+                  href={`/perspectives/${post.slug}`}
                   className="mt-3 inline-flex items-center gap-1 text-sm font-medium text-[#2B7DE9] hover:text-blue-700 transition-colors"
                 >
                   Read More →
@@ -57,7 +57,7 @@ export default function BlogPreview() {
 
         <div className="mt-12 text-center">
           <Link
-            href="/blog"
+            href="/perspectives"
             className="inline-flex items-center gap-2 text-[#2B7DE9] font-semibold hover:text-blue-700 transition-colors"
           >
             View All Insights →
