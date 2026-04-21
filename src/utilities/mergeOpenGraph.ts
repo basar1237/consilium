@@ -3,14 +3,16 @@ import { getServerSideURL } from './getURL'
 
 const defaultOpenGraph: Metadata['openGraph'] = {
   type: 'website',
-  description: 'An open-source website built with Payload and Next.js.',
+  description:
+    'Consilium Risk Advisory Group — trusted UK experts in enterprise risk management, ISO 31000, compliance, and operational resilience.',
   images: [
     {
-      url: `${getServerSideURL()}/website-template-OG.webp`,
+      url: `${getServerSideURL()}/og-image.webp`,
     },
   ],
-  siteName: 'Payload Website Template',
-  title: 'Payload Website Template',
+  siteName: 'Consilium Risk Advisory Group',
+  title: 'Consilium Risk Advisory Group | UK Risk Management Experts',
+  locale: 'en_GB',
 }
 
 export const mergeOpenGraph = (og?: Metadata['openGraph']): Metadata['openGraph'] => {

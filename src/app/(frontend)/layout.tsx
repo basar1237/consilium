@@ -9,6 +9,8 @@ import ConsiliumHeader from '@/components/consilium/layout/Header'
 import ConsiliumFooter from '@/components/consilium/layout/Footer'
 import { getCachedGlobal } from '@/utilities/getGlobals'
 import { mergeOpenGraph } from '@/utilities/mergeOpenGraph'
+import { JsonLd } from '@/components/JsonLd'
+import { getOrganizationSchema, getWebSiteSchema } from '@/components/JsonLd/schemas'
 
 import type { Header as HeaderType, Footer as FooterType } from '@/payload-types'
 
@@ -23,7 +25,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
   const faviconUrl = favicon?.url
 
   return (
-    <html className={cn(GeistSans.variable, GeistMono.variable)} lang="en" data-theme="light" suppressHydrationWarning>
+    <html className={cn(GeistSans.variable, GeistMono.variable)} lang="en-GB" data-theme="light" suppressHydrationWarning>
       <head>
         {faviconUrl ? (
           <link href={faviconUrl} rel="icon" type={favicon?.mimeType || 'image/x-icon'} />
@@ -33,6 +35,8 @@ export default async function RootLayout({ children }: { children: React.ReactNo
             <link href="/favicon.svg" rel="icon" type="image/svg+xml" />
           </>
         )}
+        <JsonLd id="schema-organization" data={getOrganizationSchema()} />
+        <JsonLd id="schema-website" data={getWebSiteSchema()} />
       </head>
       <body>
         <ConsiliumHeader data={headerData} />
@@ -45,9 +49,25 @@ export default async function RootLayout({ children }: { children: React.ReactNo
 
 export const metadata: Metadata = {
   metadataBase: new URL(getServerSideURL()),
+  title: {
+    default: 'Consilium Risk Advisory Group | UK Risk Management Experts',
+    template: '%s | Consilium Risk Advisory Group',
+  },
+  description:
+    'Consilium Risk Advisory Group — trusted UK experts in enterprise risk management, ISO 31000, compliance, and operational resilience.',
+  applicationName: 'Consilium Risk Advisory Group',
   openGraph: mergeOpenGraph(),
   twitter: {
     card: 'summary_large_image',
-    creator: '@payloadcms',
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      'max-image-preview': 'large',
+      'max-snippet': -1,
+    },
   },
 }

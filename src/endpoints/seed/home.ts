@@ -47,7 +47,7 @@ export const home: (args: HomeArgs) => RequiredDataFromCollectionSlug<'pages'> =
                   format: 0,
                   mode: 'normal',
                   style: '',
-                  text: 'Payload Website Template',
+                  text: 'Consilium Risk Advisory Group',
                   version: 1,
                 },
               ],
@@ -89,7 +89,7 @@ export const home: (args: HomeArgs) => RequiredDataFromCollectionSlug<'pages'> =
                   format: 0,
                   mode: 'normal',
                   style: '',
-                  text: " to begin managing this site's content. The code for this template is completely open-source and can be found ",
+                  text: " to manage this site's content, or ",
                   version: 1,
                 },
                 {
@@ -101,7 +101,7 @@ export const home: (args: HomeArgs) => RequiredDataFromCollectionSlug<'pages'> =
                       format: 0,
                       mode: 'normal',
                       style: '',
-                      text: 'on our Github',
+                      text: 'Contact us',
                       version: 1,
                     },
                   ],
@@ -109,7 +109,7 @@ export const home: (args: HomeArgs) => RequiredDataFromCollectionSlug<'pages'> =
                   fields: {
                     linkType: 'custom',
                     newTab: true,
-                    url: 'https://github.com/payloadcms/payload/tree/main/templates/website',
+                    url: '/contact',
                   },
                   format: '',
                   indent: 0,
@@ -666,9 +666,10 @@ export const home: (args: HomeArgs) => RequiredDataFromCollectionSlug<'pages'> =
       },
     ],
     meta: {
-      description: 'An open-source website built with Payload and Next.js.',
+      description:
+        'Consilium Risk Advisory Group — trusted UK experts in enterprise risk management, ISO 31000, compliance, and operational resilience.',
       image: heroImage.id,
-      title: 'Payload Website Template',
+      title: 'Consilium Risk Advisory Group | UK Risk Management Experts',
     },
     title: 'Home',
   }

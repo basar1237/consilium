@@ -14,6 +14,9 @@ import { PostHero } from '@/heros/PostHero'
 import { generateMeta } from '@/utilities/generateMeta'
 import PageClient from './page.client'
 import { LivePreviewListener } from '@/components/LivePreviewListener'
+import { JsonLd } from '@/components/JsonLd'
+import { getArticleSchema, getBreadcrumbSchema } from '@/components/JsonLd/schemas'
+import { getServerSideURL } from '@/utilities/getURL'
 
 export async function generateStaticParams() {
   const payload = await getPayload({ config: configPromise })
@@ -51,8 +54,36 @@ export default async function Post({ params: paramsPromise }: Args) {
 
   if (!post) return <PayloadRedirects url={url} />
 
+  const articleImage =
+    typeof post.meta?.image === 'object' && post.meta?.image?.url
+      ? `${getServerSideURL()}${post.meta.image.url}`
+      : undefined
+
+  const authorName =
+    post.authorName ||
+    post.populatedAuthors?.[0]?.name ||
+    undefined
+
+  const articleSchema = getArticleSchema({
+    title: post.title,
+    description: post.meta?.description || undefined,
+    slug: decodedSlug,
+    image: articleImage,
+    datePublished: post.publishedAt || post.createdAt,
+    dateModified: post.updatedAt,
+    authorName,
+  })
+
+  const breadcrumbSchema = getBreadcrumbSchema([
+    { name: 'Home', url: '/' },
+    { name: 'Perspectives', url: '/perspectives' },
+    { name: post.title, url: `/perspectives/${decodedSlug}` },
+  ])
+
   return (
     <article className="pt-16 pb-16">
+      <JsonLd id="schema-article" data={articleSchema} />
+      <JsonLd id="schema-breadcrumb" data={breadcrumbSchema} />
       <PageClient />
 
       {/* Allows redirects for valid pages too */}

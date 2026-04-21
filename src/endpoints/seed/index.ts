@@ -217,16 +217,20 @@ export const seed = async ({
       data: {
         navItems: [
           {
-            label: 'Admin',
-            href: '/admin',
+            label: 'About',
+            href: '/about',
           },
           {
-            label: 'Source Code',
-            href: 'https://github.com/payloadcms/payload/tree/main/templates/website',
+            label: 'Services',
+            href: '/services',
           },
           {
-            label: 'Payload',
-            href: 'https://payloadcms.com/',
+            label: 'Insights',
+            href: '/perspectives',
+          },
+          {
+            label: 'Contact',
+            href: '/contact',
           },
         ],
       },

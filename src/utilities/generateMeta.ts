@@ -8,7 +8,7 @@ import { getServerSideURL } from './getURL'
 const getImageURL = (image?: Media | Config['db']['defaultIDType'] | null) => {
   const serverUrl = getServerSideURL()
 
-  let url = serverUrl + '/website-template-OG.webp'
+  let url = serverUrl + '/og-image.webp'
 
   if (image && typeof image === 'object' && 'url' in image) {
     const ogUrl = image.sizes?.og?.url
@@ -27,8 +27,11 @@ export const generateMeta = async (args: {
   const ogImage = getImageURL(doc?.meta?.image)
 
   const title = doc?.meta?.title
-    ? doc?.meta?.title + ' | Payload Website Template'
-    : 'Payload Website Template'
+    ? doc?.meta?.title + ' | Consilium Risk Advisory Group'
+    : 'Consilium Risk Advisory Group | UK Risk Management Experts'
+
+  const slug = Array.isArray(doc?.slug) ? doc?.slug.join('/') : doc?.slug || ''
+  const canonicalPath = slug === 'home' || !slug ? '/' : `/${slug}`
 
   return {
     description: doc?.meta?.description,
@@ -42,8 +45,11 @@ export const generateMeta = async (args: {
           ]
         : undefined,
       title,
-      url: Array.isArray(doc?.slug) ? doc?.slug.join('/') : '/',
+      url: canonicalPath,
     }),
     title,
+    alternates: {
+      canonical: canonicalPath,
+    },
   }
 }

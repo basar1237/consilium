@@ -12,6 +12,8 @@ import { RenderHero } from '@/heros/RenderHero'
 import { generateMeta } from '@/utilities/generateMeta'
 import PageClient from './page.client'
 import { LivePreviewListener } from '@/components/LivePreviewListener'
+import { JsonLd } from '@/components/JsonLd'
+import { getBreadcrumbSchema } from '@/components/JsonLd/schemas'
 
 export async function generateStaticParams() {
   const payload = await getPayload({ config: configPromise })
@@ -68,8 +70,14 @@ export default async function Page({ params: paramsPromise }: Args) {
 
   const { hero, layout } = page
 
+  const breadcrumbSchema = getBreadcrumbSchema([
+    { name: 'Home', url: '/' },
+    { name: page.title, url: url },
+  ])
+
   return (
     <article className="pb-24">
+      <JsonLd id="schema-breadcrumb" data={breadcrumbSchema} />
       <PageClient />
       {/* Allows redirects for valid pages too */}
       <PayloadRedirects disableNotFound url={url} />

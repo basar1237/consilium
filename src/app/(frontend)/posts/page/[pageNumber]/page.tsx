@@ -65,7 +65,9 @@ export default async function Page({ params: paramsPromise }: Args) {
 export async function generateMetadata({ params: paramsPromise }: Args): Promise<Metadata> {
   const { pageNumber } = await paramsPromise
   return {
-    title: `Payload Website Template Posts Page ${pageNumber || ''}`,
+    title: `Insights — Page ${pageNumber || ''}`.trim(),
+    description:
+      'Expert insights on risk management, compliance, operational resilience, and governance from the Consilium team.',
   }
 }
 

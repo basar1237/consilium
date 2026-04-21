@@ -58,6 +58,8 @@ export default async function Page() {
 
 export function generateMetadata(): Metadata {
   return {
-    title: `Payload Website Template Posts`,
+    title: 'Insights',
+    description:
+      'Expert insights on risk management, compliance, operational resilience, and governance from the Consilium team.',
   }
 }

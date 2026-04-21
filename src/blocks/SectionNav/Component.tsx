@@ -215,7 +215,7 @@ export const SectionNavBlockComponent: React.FC<SectionNavBlock> = ({ sections }
   }
 
   return (
-    <nav className="sticky top-[79px] z-40 border-b border-zinc-200 bg-white/95 backdrop-blur-sm md:top-[88px]">
+    <nav className="sticky top-[81px] z-40 border-b border-zinc-200 bg-white/95 backdrop-blur-sm md:top-[89px]">
       <div className="mx-auto">
         <div className="no-scrollbar flex items-center gap-1 overflow-x-auto px-4 py-2 sm:gap-2 sm:px-6 md:justify-center md:py-3 lg:px-8">
           {items.map(({ anchorId, label, icon }) => (

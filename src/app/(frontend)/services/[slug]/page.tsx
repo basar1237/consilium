@@ -5,6 +5,8 @@ import configPromise from '@payload-config'
 import { getPayload } from 'payload'
 import { cache } from 'react'
 import { RenderBlocks } from '@/blocks/RenderBlocks'
+import { JsonLd } from '@/components/JsonLd'
+import { getBreadcrumbSchema, getServiceSchema } from '@/components/JsonLd/schemas'
 
 type Props = { params: Promise<{ slug: string }> }
 
@@ -37,8 +39,28 @@ export default async function ServiceDetailPage({ params }: Props) {
   const page = await queryServicePage(slug)
   if (!page) notFound()
 
+  const serviceImage =
+    typeof page.meta?.image === 'object' && page.meta?.image?.url
+      ? page.meta.image.url
+      : undefined
+
+  const serviceSchema = getServiceSchema({
+    name: page.title,
+    description: page.meta?.description || undefined,
+    slug,
+    image: serviceImage,
+  })
+
+  const breadcrumbSchema = getBreadcrumbSchema([
+    { name: 'Home', url: '/' },
+    { name: 'Services', url: '/#services-hub' },
+    { name: page.title, url: `/services/${slug}` },
+  ])
+
   return (
     <article>
+      <JsonLd id="schema-service" data={serviceSchema} />
+      <JsonLd id="schema-breadcrumb" data={breadcrumbSchema} />
       {/* Breadcrumb */}
       <div className="mx-auto max-w-4xl px-6 lg:px-8 pt-20 pb-8">
         <nav className="mb-8 flex items-center gap-2 text-sm text-zinc-500">
