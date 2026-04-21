@@ -37,17 +37,27 @@ const getPagesSitemap = unstable_cache(
         lastmod: dateFallback,
       },
       {
-        loc: `${SITE_URL}/posts`,
+        loc: `${SITE_URL}/perspectives`,
+        lastmod: dateFallback,
+      },
+      {
+        loc: `${SITE_URL}/services`,
         lastmod: dateFallback,
       },
     ]
+
+    const slugToPath = (slug: string) => {
+      if (slug === 'home') return '/'
+      if (slug.startsWith('service-')) return `/services/${slug.replace('service-', '')}`
+      return `/${slug}`
+    }
 
     const sitemap = results.docs
       ? results.docs
           .filter((page) => Boolean(page?.slug))
           .map((page) => {
             return {
-              loc: page?.slug === 'home' ? `${SITE_URL}/` : `${SITE_URL}/${page?.slug}`,
+              loc: `${SITE_URL}${slugToPath(page!.slug!)}`,
               lastmod: page.updatedAt || dateFallback,
             }
           })

@@ -20,6 +20,21 @@ export const redirects: NextConfig['redirects'] = async () => {
       destination: '/contact',
       permanent: true,
     },
+    {
+      source: '/posts',
+      destination: '/perspectives',
+      permanent: true,
+    },
+    {
+      source: '/posts/:slug',
+      destination: '/perspectives/:slug',
+      permanent: true,
+    },
+    {
+      source: '/posts/page/:page',
+      destination: '/perspectives',
+      permanent: true,
+    },
     internetExplorerRedirect,
   ]
 }

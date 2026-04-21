@@ -61,7 +61,7 @@ export const BlogPreviewBlockComponent: React.FC<BlogPreviewBlock> = async ({
                 <div className="flex flex-1 flex-col p-6">
                   <h3 className="text-lg font-semibold text-[#1A1A2E] line-clamp-2">
                     <Link
-                      href={`/posts/${post.slug}`}
+                      href={`/perspectives/${post.slug}`}
                       className="transition-colors hover:text-[#2B7DE9]"
                     >
                       {post.title}
@@ -74,7 +74,7 @@ export const BlogPreviewBlockComponent: React.FC<BlogPreviewBlock> = async ({
                   )}
                   <div className="mt-4 flex items-center justify-between border-t border-zinc-100 pt-4">
                     <Link
-                      href={`/posts/${post.slug}`}
+                      href={`/perspectives/${post.slug}`}
                       className="inline-flex items-center gap-1 text-sm font-medium text-[#2B7DE9] transition-colors hover:text-blue-700"
                     >
                       Read More →

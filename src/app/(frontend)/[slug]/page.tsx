@@ -33,7 +33,8 @@ export async function generateStaticParams() {
       return (
         doc.slug !== 'home' &&
         doc.slug !== 'contact' &&
-        doc.slug !== 'book-consultation'
+        doc.slug !== 'book-consultation' &&
+        !doc.slug?.startsWith('service-')
       )
     })
     .map(({ slug }) => {
@@ -56,6 +57,9 @@ export default async function Page({ params: paramsPromise }: Args) {
   const decodedSlug = decodeURIComponent(slug)
   if (decodedSlug === 'book-consultation') {
     redirect('/contact')
+  }
+  if (decodedSlug.startsWith('service-')) {
+    redirect(`/services/${decodedSlug.replace('service-', '')}`)
   }
   const url = '/' + decodedSlug
   let page: RequiredDataFromCollectionSlug<'pages'> | null
@@ -96,6 +100,9 @@ export async function generateMetadata({ params: paramsPromise }: Args): Promise
   const decodedSlug = decodeURIComponent(slug)
   if (decodedSlug === 'book-consultation') {
     redirect('/contact')
+  }
+  if (decodedSlug.startsWith('service-')) {
+    redirect(`/services/${decodedSlug.replace('service-', '')}`)
   }
   const page = await queryPageBySlug({
     slug: decodedSlug,
