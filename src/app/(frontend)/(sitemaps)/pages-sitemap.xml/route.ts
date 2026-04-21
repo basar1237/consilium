@@ -48,8 +48,9 @@ const getPagesSitemap = unstable_cache(
 
     const slugToPath = (slug: string) => {
       if (slug === 'home') return '/'
-      if (slug.startsWith('service-')) return `/services/${slug.replace('service-', '')}`
-      return `/${slug}`
+      if (slug.startsWith('service-'))
+        return `/services/${encodeURIComponent(slug.replace('service-', ''))}`
+      return `/${encodeURIComponent(slug)}`
     }
 
     const sitemap = results.docs
