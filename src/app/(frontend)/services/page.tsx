@@ -3,14 +3,20 @@ import Link from 'next/link'
 import configPromise from '@payload-config'
 import { getPayload } from 'payload'
 import React from 'react'
+import { JsonLd } from '@/components/JsonLd'
+import { getBreadcrumbSchema } from '@/components/JsonLd/schemas'
+import { getServerSideURL } from '@/utilities/getURL'
 
 export const dynamic = 'force-static'
 export const revalidate = 600
 
 export const metadata: Metadata = {
-  title: 'Services | Consilium Risk Advisory Group',
+  title: 'Services',
   description:
     'Explore our full range of risk advisory services including ISO 31000 risk management, compliance, operational resilience, and governance consulting.',
+  alternates: {
+    canonical: '/services',
+  },
 }
 
 export default async function ServicesPage() {
@@ -33,8 +39,29 @@ export default async function ServicesPage() {
     description: page.meta?.description || '',
   }))
 
+  const siteUrl = getServerSideURL()
+
+  const breadcrumbSchema = getBreadcrumbSchema([
+    { name: 'Home', url: '/' },
+    { name: 'Services', url: '/services' },
+  ])
+
+  const itemListSchema = {
+    '@context': 'https://schema.org',
+    '@type': 'ItemList',
+    name: 'Consilium Risk Advisory Services',
+    itemListElement: services.map((service, idx) => ({
+      '@type': 'ListItem',
+      position: idx + 1,
+      name: service.title,
+      url: `${siteUrl}/services/${service.slug}`,
+    })),
+  }
+
   return (
     <section className="py-20">
+      <JsonLd id="schema-breadcrumb" data={breadcrumbSchema} />
+      <JsonLd id="schema-itemlist" data={itemListSchema} />
       <div className="mx-auto max-w-7xl px-6 lg:px-8">
         <div className="mx-auto max-w-3xl text-center">
           <h1 className="text-3xl font-bold tracking-tight text-[#1A1A2E] sm:text-4xl lg:text-5xl">
