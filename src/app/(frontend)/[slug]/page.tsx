@@ -4,7 +4,7 @@ import { PayloadRedirects } from '@/components/PayloadRedirects'
 import configPromise from '@payload-config'
 import { getPayload, type RequiredDataFromCollectionSlug } from 'payload'
 import { draftMode } from 'next/headers'
-import { redirect } from 'next/navigation'
+import { permanentRedirect, redirect } from 'next/navigation'
 import React, { cache } from 'react'
 
 import { RenderBlocks } from '@/blocks/RenderBlocks'
@@ -59,7 +59,7 @@ export default async function Page({ params: paramsPromise }: Args) {
     redirect('/contact')
   }
   if (decodedSlug.startsWith('service-')) {
-    redirect(`/services/${decodedSlug.replace('service-', '')}`)
+    permanentRedirect(`/services/${decodedSlug.replace('service-', '')}`)
   }
   const url = '/' + decodedSlug
   let page: RequiredDataFromCollectionSlug<'pages'> | null
@@ -102,7 +102,7 @@ export async function generateMetadata({ params: paramsPromise }: Args): Promise
     redirect('/contact')
   }
   if (decodedSlug.startsWith('service-')) {
-    redirect(`/services/${decodedSlug.replace('service-', '')}`)
+    permanentRedirect(`/services/${decodedSlug.replace('service-', '')}`)
   }
   const page = await queryPageBySlug({
     slug: decodedSlug,
