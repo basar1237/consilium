@@ -11,6 +11,9 @@ import { getCachedGlobal } from '@/utilities/getGlobals'
 import { mergeOpenGraph } from '@/utilities/mergeOpenGraph'
 import { JsonLd } from '@/components/JsonLd'
 import { getOrganizationSchema, getWebSiteSchema } from '@/components/JsonLd/schemas'
+import { Analytics } from '@vercel/analytics/next'
+import { SpeedInsights } from '@vercel/speed-insights/next'
+import { Clarity } from '@/components/Clarity'
 
 import type { Header as HeaderType, Footer as FooterType } from '@/payload-types'
 
@@ -42,6 +45,9 @@ export default async function RootLayout({ children }: { children: React.ReactNo
         <ConsiliumHeader data={headerData} />
         <main className="flex-1">{children}</main>
         <ConsiliumFooter data={footerData} />
+        <Clarity />
+        <Analytics />
+        <SpeedInsights />
       </body>
     </html>
   )
