@@ -26,9 +26,8 @@ export const generateMeta = async (args: {
 
   const ogImage = getImageURL(doc?.meta?.image)
 
-  const title = doc?.meta?.title
-    ? doc?.meta?.title + ' | Consilium Risk Advisory Group'
-    : 'Consilium Risk Advisory Group | UK Risk Management Experts'
+  const rawTitle =
+    doc?.meta?.title || 'Consilium Risk Advisory Group | UK Risk Management Experts'
 
   const slug = Array.isArray(doc?.slug) ? doc?.slug.join('/') : doc?.slug || ''
   const canonicalPath = slug === 'home' || !slug ? '/' : `/${slug}`
@@ -44,10 +43,10 @@ export const generateMeta = async (args: {
             },
           ]
         : undefined,
-      title,
+      title: rawTitle,
       url: canonicalPath,
     }),
-    title,
+    title: { absolute: rawTitle },
     alternates: {
       canonical: canonicalPath,
     },
