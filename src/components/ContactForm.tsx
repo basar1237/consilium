@@ -41,6 +41,28 @@ export const ContactForm: React.FC<Props> = ({ variant = 'contact' }) => {
         throw new Error(data.error || 'Something went wrong')
       }
 
+      const web3Key = process.env.NEXT_PUBLIC_WEB3FORMS_ACCESS_KEY
+      if (web3Key && !body.companyWebsite) {
+        fetch('https://api.web3forms.com/submit', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+          body: JSON.stringify({
+            access_key: web3Key,
+            subject: `New enquiry from ${body.fullName}`,
+            from_name: 'Consilium Website',
+            replyto: body.email,
+            'Full Name': body.fullName,
+            Email: body.email,
+            Country: body.country,
+            Organisation: body.organisation || '-',
+            Phone: body.phone || '-',
+            Message: body.message,
+          }),
+        }).catch((mailErr) => {
+          console.error('[contact-form] web3forms notify failed', mailErr)
+        })
+      }
+
       setStatus('success')
     } catch (err) {
       setErrorMsg(err instanceof Error ? err.message : 'Something went wrong')
