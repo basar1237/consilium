@@ -1,0 +1,12 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(git mv *)",
+      "Bash(tasklist //FI \"IMAGENAME eq node.exe\")",
+      "Bash(mkdir -p \"src/app/\\(frontend\\)/perspectives/[slug]\")",
+      "Bash(rmdir \"src/app/\\(frontend\\)/blog/[slug]\")",
+      "Bash(pnpm add *)",
+      "WebFetch(domain:consiliumriskadvisorygroup.co.uk)"
+    ]
+  }
+}
