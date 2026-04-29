@@ -13,6 +13,12 @@ import configPromise from '../src/payload.config.ts'
 
 const SEO_UPDATES = [
   {
+    slug: 'home',
+    metaTitle: 'Consilium Risk Advisory Group | UK Enterprise Risk Management Experts',
+    metaDescription:
+      'Consilium Risk Advisory Group provides expert UK risk management consulting — ISO 31000 frameworks, regulatory compliance, operational resilience, third-party risk, and governance advisory tailored to your organisation.',
+  },
+  {
     slug: 'services',
     metaTitle: 'Risk Advisory Services | Consilium Risk Advisory Group',
     metaDescription:
