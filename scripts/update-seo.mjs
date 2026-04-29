@@ -16,7 +16,7 @@ const SEO_UPDATES = [
     slug: 'home',
     metaTitle: 'Consilium Risk Advisory Group | UK Enterprise Risk Management Experts',
     metaDescription:
-      'Consilium Risk Advisory Group provides expert UK risk management consulting — ISO 31000 frameworks, regulatory compliance, operational resilience, third-party risk, and governance advisory tailored to your organisation.',
+      'Expert UK risk management consulting from Consilium — ISO 31000 frameworks, regulatory compliance, operational resilience, and third-party risk advisory.',
   },
   {
     slug: 'services',
