@@ -29,8 +29,11 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const page = await queryServicePage(slug)
   if (!page) return { title: 'Not Found' }
   return {
-    title: `${page.title} | Consilium Risk Advisory`,
+    title: page.title,
     description: page.meta?.description || '',
+    alternates: {
+      canonical: `/services/${slug}`,
+    },
   }
 }
 

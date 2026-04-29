@@ -20,7 +20,7 @@ export default function ConsiliumFooter({ data }: Props) {
               {logo?.url ? (
                 <Image
                   src={logo.url}
-                  alt={logo.alt || 'Logo'}
+                  alt={logo.alt || 'Consilium Risk Advisory Group'}
                   width={1000}
                   height={1000}
                   className="h-15 w-auto rounded-lg md:h-18"

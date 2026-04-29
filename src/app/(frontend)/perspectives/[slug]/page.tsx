@@ -26,8 +26,11 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const post = await queryPostBySlug(slug)
   if (!post) return { title: 'Not Found' }
   return {
-    title: `${post.title} | Consilium Perspectives`,
+    title: post.title,
     description: post.meta?.description || '',
+    alternates: {
+      canonical: `/perspectives/${slug}`,
+    },
   }
 }
 

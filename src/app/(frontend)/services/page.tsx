@@ -13,7 +13,7 @@ export const revalidate = 600
 export const metadata: Metadata = {
   title: 'Services',
   description:
-    'Explore our full range of risk advisory services including ISO 31000 risk management, compliance, operational resilience, and governance consulting.',
+    "Explore Consilium's full range of UK risk advisory services — ISO 31000 risk management, regulatory compliance, operational resilience, third-party risk, and governance consulting tailored to your organisation.",
   alternates: {
     canonical: '/services',
   },
